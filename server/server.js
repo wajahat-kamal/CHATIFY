@@ -35,12 +35,3 @@ const server = app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
 
-// --- Graceful Shutdown ---
-process.on("SIGINT", async () => {
-  console.log("\n🔻 Shutting down...");
-  await mongoose.connection.close();
-  server.close(() => {
-    console.log("✅ Server and DB connections closed");
-    process.exit(0);
-  });
-});
