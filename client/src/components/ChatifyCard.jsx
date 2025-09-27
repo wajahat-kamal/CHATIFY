@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import ChatHeader from "./ChatHeader";
 import ChatBody from "./ChatBody";
 
 export default function ChatifyCard() {
@@ -18,15 +17,19 @@ export default function ChatifyCard() {
 
   return (
     <div
-      className="bg-gradient-to-br from-gray-900 via-gray-800 to-black min-h-screen w-full flex items-center justify-center transition-colors duration-700"
+      className="min-h-screen w-full flex items-center justify-center
+                 bg-gradient-to-br from-gray-900 via-gray-800 to-black
+                 transition-colors duration-700"
     >
-      <div
-        className="bg-gray-900/80 text-gray-100 w-full sm:w-[420px] h-screen sm:h-[550px]
-           sm:rounded-2xl shadow-2xl flex flex-col overflow-hidden
-           backdrop-blur-xl border border-gray-200/40 dark:border-gray-700/40
-           transition-all duration-700"
+      <section
+        aria-label="Chat window"
+        className="flex flex-col overflow-hidden
+                   w-full sm:w-[420px] h-screen sm:h-[550px]
+                   bg-gray-900/80 text-gray-100
+                   sm:rounded-2xl shadow-2xl
+                   backdrop-blur-xl border border-gray-200/40 dark:border-gray-700/40
+                   transition-all duration-700"
       >
-     
         <ChatBody
           messages={messages}
           input={input}
@@ -34,7 +37,7 @@ export default function ChatifyCard() {
           loading={loading}
           handleSend={handleSend}
         />
-      </div>
+      </section>
     </div>
   );
 }
