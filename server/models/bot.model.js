@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
  
-const botSchema = new mongoose.connect({
+const botSchema = new mongoose.Schema({
     text: {
         type: String,
         required: true

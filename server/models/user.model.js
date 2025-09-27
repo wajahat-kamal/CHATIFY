@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
  
-const userSchema = new mongoose.connect({
+const userSchema = new mongoose.Schema({
     sender: {
         type: String,
         required: true,
