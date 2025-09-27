@@ -1,4 +1,4 @@
 const message = (req, res) => {
-    console.log();
+    console.log("Route Connect");
     
 }

@@ -5,16 +5,12 @@ import mongoose from "mongoose";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 7000;
 const MONGO_URI = process.env.MONGO_URI;
 
 async function connectDB() {
   try {
-    await mongoose.connect(MONGO_URI, {
-      // options are optional in Mongoose 6+, but you can add if needed
-      // useNewUrlParser: true,
-      // useUnifiedTopology: true,
-    });
+    await mongoose.connect(MONGO_URI);
     console.log("✅ Connected to MongoDB");
   } catch (err) {
     console.error("❌ MongoDB connection failed:", err.message);
