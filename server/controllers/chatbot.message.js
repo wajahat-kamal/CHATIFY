@@ -1,4 +1,4 @@
-const message = (req, res) => {
+export const message = (req, res) => {
     console.log("Route Connect");
     
 }
