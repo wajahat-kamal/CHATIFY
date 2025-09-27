@@ -1,8 +1,7 @@
-import { RotateCcw, Sun, Moon } from "lucide-react";
 import botImage from "../assets/chatbot.avif";
 import userImage from "../assets/user-avatar.png"; 
 
-export default function ChatHeader({ theme, toggleTheme, handleRefresh }) {
+export default function ChatHeader() {
   return (
     <header
       className="flex items-center justify-between px-4 py-3
@@ -10,7 +9,6 @@ export default function ChatHeader({ theme, toggleTheme, handleRefresh }) {
                  border-b border-gray-200/40 dark:border-gray-700/40
                  shadow-sm transition-colors duration-700"
     >
-      {/* ---- Logo + Title ---- */}
       <div className="flex items-center gap-2">
         <img
           src={botImage}
@@ -19,33 +17,8 @@ export default function ChatHeader({ theme, toggleTheme, handleRefresh }) {
         />
         <h1 className="text-xl font-bold tracking-wide">CHATIFY</h1>
       </div>
-
-      {/* ---- Action Buttons + User Avatar ---- */}
-      <div className="flex items-center gap-3">
-        <button
-          onClick={handleRefresh}
-          className="p-1.5 rounded-xl hover:bg-purple-500/20
-                     text-gray-600 dark:text-gray-200
-                     bg-gray-700
-                     hover:text-purple-600 dark:hover:text-purple-400
-                     transition-colors duration-300"
-          title="Refresh chat"
-        >
-          <RotateCcw size={18} />
-        </button>
-
-        <button
-          onClick={toggleTheme}
-          className="p-1.5 rounded-xl hover:bg-purple-500/20 bg-gray-700
-                     text-gray-600 dark:text-gray-200
-                     hover:text-purple-600 dark:hover:text-purple-400
-                     transition-colors duration-300"
-          title="Toggle theme"
-        >
-          {theme === "light" ? <Moon size={18} /> : <Sun size={18} />}
-        </button>
-
-        {/* ---- User Avatar ---- */}
+      
+      <div>
         <img
           src={userImage}
           alt="User Avatar"

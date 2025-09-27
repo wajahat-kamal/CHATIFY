@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { Send } from "lucide-react";
 import Chatbot from "../assets/chatbot.png";
+import botImage from "../assets/chatbot.avif";
+import userImage from "../assets/user-avatar.png";
 
 export default function ChatBody({
   messages,
@@ -9,48 +11,94 @@ export default function ChatBody({
   loading,
   handleSend,
 }) {
+  const inputClasses =
+    "flex-1 rounded-lg border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm " +
+    "bg-white/70 dark:bg-gray-900/70 text-gray-800 dark:text-gray-100 " +
+    "focus:outline-none focus:ring-2 focus:ring-purple-400 dark:focus:ring-purple-600 " +
+    "placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-300";
+
+  const bubbleBase =
+    "max-w-[80%] px-3 py-1.5 my-1 rounded-lg shadow text-start text-sm";
+
   return (
     <>
-      {/* Body */}
-      <div className="flex-1 flex flex-col items-center justify-start px-3 py-4 overflow-y-auto">
+      {/* Header */}
+      <header
+        className="flex items-center justify-between px-4 py-3
+                   bg-white/10 dark:bg-gray-800/50 backdrop-blur-md
+                   border-b border-gray-200/40 dark:border-gray-700/40
+                   shadow-sm transition-colors duration-700"
+      >
+        <div className="flex items-center gap-2">
+          <img
+            src={botImage}
+            alt="Chatify Bot Logo"
+            className="w-8 h-8 rounded-full object-cover shadow-md ring-2 ring-purple-500/40"
+          />
+          <h1 className="text-xl font-bold tracking-wide">CHATIFY</h1>
+        </div>
+
+        <button
+          aria-label="User settings"
+          className="focus:outline-none hover:scale-105 transition-transform duration-200"
+        >
+          <img
+            src={userImage}
+            alt="User avatar"
+            className="w-8 h-8 rounded-full object-cover shadow-md ring-2 ring-purple-500/40"
+          />
+        </button>
+      </header>
+
+      {/* Chat Body */}
+      <main className="flex-1 flex flex-col items-center justify-start px-3 py-4 overflow-y-auto">
         {messages.length === 0 ? (
-          <div className="flex flex-col items-center justify-center flex-1">
+          <div className="flex flex-col items-center justify-center flex-1 text-center">
             <motion.img
               src={Chatbot}
-              alt="Bot"
+              alt="Chatbot illustration"
               className="w-20 h-20 drop-shadow-xl"
-              animate={{ y: [0, -15, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+              animate={{ y: [0, -12, 0] }}
+              transition={{
+                duration: 1.8,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
             />
-            <h2 className="text-xl sm:text-2xl font-semibold mt-3">
-              How can I help you?
+            <h2 className="text-xl sm:text-2xl font-semibold mt-4 text-gray-700 dark:text-gray-200">
+              How can I help you today?
             </h2>
+            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+              Start typing below to begin chatting.
+            </p>
           </div>
         ) : (
           <div className="w-full flex flex-col gap-1">
             {messages.map((message, idx) => (
               <div
                 key={idx}
-                className={`max-w-[80%] px-3 py-1.5 my-1 rounded-lg shadow text-start text-sm
-          ${
-            message.from === "user"
-              ? "self-end bg-purple-600 text-white"
-              : "self-start bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
-          }`}
+                className={
+                  bubbleBase +
+                  " " +
+                  (message.from === "user"
+                    ? "self-end bg-purple-600 text-white"
+                    : "self-start bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100")
+                }
               >
                 {message.text}
               </div>
             ))}
           </div>
         )}
+
         {loading && (
           <div className="w-full flex justify-start px-3 py-1 my-1">
             <span className="text-xs italic text-gray-500 dark:text-gray-400">
-              Typing...
+              Typing…
             </span>
           </div>
         )}
-      </div>
+      </main>
 
       {/* Input Area */}
       <form
@@ -60,26 +108,25 @@ export default function ChatBody({
                    bg-gray-50/10 dark:bg-gray-800/50
                    backdrop-blur-md transition-colors duration-700"
       >
+        <label htmlFor="chat-input" className="sr-only">
+          Type your message
+        </label>
         <input
+          id="chat-input"
           type="text"
           placeholder="Type your message..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="flex-1 rounded-lg border border-gray-300 dark:border-gray-600
-                     px-3 py-1.5 text-sm
-                     bg-white/70 dark:bg-gray-900/70
-                     text-gray-800 dark:text-gray-100
-                     focus:outline-none focus:ring-2
-                     focus:ring-purple-400 dark:focus:ring-purple-600
-                     placeholder-gray-500 dark:placeholder-gray-400
-                     transition-colors duration-300"
+          className={inputClasses}
+          disabled={loading}
         />
 
         <button
           type="submit"
           disabled={loading}
+          aria-label="Send message"
           className="p-2.5 rounded-lg flex items-center justify-center shadow-md
-                     bg-purple-600 hover:bg-purple-700
+                     bg-purple-600 hover:bg-purple-700 disabled:opacity-60
                      text-white transition-colors duration-300"
         >
           <Send size={18} />
