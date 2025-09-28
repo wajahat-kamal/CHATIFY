@@ -1,9 +1,8 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import chatbotRouter from "./routes/chatbot.routes.js";
 import cors from "cors";
-
+import chatbotRouter from "./routes/chatbot.routes.js";
 
 dotenv.config();
 
@@ -23,17 +22,15 @@ async function connectDB() {
 connectDB();
 
 // --- Middlewares ---
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
 // --- Routes ---
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
+app.use("/bot/v1", chatbotRouter);
 
-app.use("/bot/v1", chatbotRouter)
-
-const server = app.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
-
