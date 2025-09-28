@@ -27,7 +27,7 @@ app.use(express.json());
 
 // --- Routes ---
 app.get("/", (req, res) => {
-  res.send("Hello World!");
+  res.send("API Working!");
 });
 app.use("/bot/v1", chatbotRouter);
 
