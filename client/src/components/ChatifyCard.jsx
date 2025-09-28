@@ -8,11 +8,11 @@ export default function ChatifyCard() {
 
   const handleSend = (e) => {
     e.preventDefault();
-    const userMsg = input.trim();
-    if (!userMsg) return;
-
-    setMessages((prev) => [...prev, { from: "user", text: userMsg }]);
-    setInput("");
+    try {
+      
+    } catch (error) {
+      
+    }
   };
 
   return (
