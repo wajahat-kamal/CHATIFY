@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import chatbotRouter from "./routes/chatbot.routes.js";
+import cors from "cors";
+
 
 dotenv.config();
 
@@ -22,6 +24,7 @@ connectDB();
 
 // --- Middlewares ---
 app.use(express.json());
+app.use(cors());
 
 // --- Routes ---
 app.get("/", (req, res) => {

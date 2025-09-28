@@ -23,7 +23,7 @@ export default function ChatifyCard() {
         setMessages((prev) => [
           ...prev,
           { text: data.userMessage, sender: "user" },
-          { text: data.botReplay, sender: "bot" },
+          { text: data.botReply, sender: "bot" },
         ]);
         setInput("");
       } else {
