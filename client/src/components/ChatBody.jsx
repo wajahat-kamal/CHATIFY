@@ -127,6 +127,7 @@ export default function ChatBody({
           onChange={(e) => setInput(e.target.value)}
           className={inputClasses}
           disabled={loading}
+          autoFocus
         />
 
         <button
