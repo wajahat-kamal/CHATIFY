@@ -31,8 +31,8 @@ export const message = async (req, res) => {
 
     return res.status(201).json({
       success: true,
-      userMessage: userMsg,
-      botReply: botMsg,
+      userMessage: userMsg.text,
+      botReply: botMsg.text,
     });
 
   } catch (error) {
