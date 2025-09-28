@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Send, Loader2 } from "lucide-react"; // ✅ Added Loader2 spinner icon
+import { Send, Loader2 } from "lucide-react";
 import emptyStateBot from "../assets/chatbot.png";
 import botImage from "../assets/chatbot.avif";
 import userImage from "../assets/user-avatar.png";
@@ -97,7 +97,6 @@ export default function ChatBody({
 
         {loading && (
           <div className="w-full flex items-center gap-2 px-3 py-2 my-1 text-gray-500 dark:text-gray-400">
-            {/* 🔄 Animated Lucide Loader */}
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ repeat: Infinity, duration: 1.2, ease: "linear" }}
