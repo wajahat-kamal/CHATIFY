@@ -6,12 +6,20 @@ export default function ChatifyCard() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSend = (e) => {
+  const handleSend = async (e) => {
     e.preventDefault();
     try {
-      
+      setLoading(true)
+      const {data} = await axiox.post("http://localhost:7000/bot/v1/message", { text: input})
+      if (data.success) {
+        setMessages([...messages, {text: data.userMessage, sender: "user" }, { text: data.botReplay, sender: "bot"}])
+      } else {
+        
+      }
     } catch (error) {
       
+    } finally {
+      setLoading(false)
     }
   };
 
