@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import { Send } from "lucide-react";
-import Chatbot from "../assets/chatbot.png";
+import { Send, Loader2 } from "lucide-react"; // ✅ Added Loader2 spinner icon
+import emptyStateBot from "../assets/chatbot.png";
 import botImage from "../assets/chatbot.avif";
 import userImage from "../assets/user-avatar.png";
 
@@ -11,14 +11,16 @@ export default function ChatBody({
   loading,
   handleSend,
 }) {
-  const inputClasses =
-    "flex-1 rounded-lg border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm " +
-    "bg-white/70 dark:bg-gray-900/70 text-gray-800 dark:text-gray-100 " +
-    "focus:outline-none focus:ring-2 focus:ring-purple-400 dark:focus:ring-purple-600 " +
-    "placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-300";
+  const inputClasses = `
+    flex-1 rounded-lg border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm
+    bg-white/70 dark:bg-gray-900/70 text-gray-800 dark:text-gray-100
+    focus:outline-none focus:ring-2 focus:ring-purple-400 dark:focus:ring-purple-600
+    placeholder-gray-500 dark:placeholder-gray-400 transition-colors duration-300
+  `;
 
-  const bubbleBase =
-    "max-w-[80%] px-3 py-1.5 my-1 rounded-lg shadow text-start text-sm";
+  const bubbleBase = `
+    max-w-[80%] px-3 py-1.5 my-1 rounded-lg shadow text-start text-sm
+  `;
 
   return (
     <>
@@ -51,11 +53,15 @@ export default function ChatBody({
       </header>
 
       {/* Chat Body */}
-      <main className="flex-1 flex flex-col items-center justify-start px-3 py-4 overflow-y-auto">
+      <main
+        className="flex-1 flex flex-col items-center justify-start px-3 py-4 overflow-y-auto"
+        aria-live="polite"
+        aria-busy={loading}
+      >
         {messages.length === 0 ? (
           <div className="flex flex-col items-center justify-center flex-1 text-center">
             <motion.img
-              src={Chatbot}
+              src={emptyStateBot}
               alt="Chatbot illustration"
               className="w-20 h-20 drop-shadow-xl"
               animate={{ y: [0, -12, 0] }}
@@ -77,13 +83,11 @@ export default function ChatBody({
             {messages.map((message, idx) => (
               <div
                 key={idx}
-                className={
-                  bubbleBase +
-                  " " +
-                  (message.from === "user"
+                className={`${bubbleBase} ${
+                  message.sender === "user"
                     ? "self-end bg-purple-600 text-white"
-                    : "self-start bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100")
-                }
+                    : "self-start bg-gray-200 dark:bg-gray-700 text-gray-900 dark:text-gray-100"
+                }`}
               >
                 {message.text}
               </div>
@@ -92,10 +96,15 @@ export default function ChatBody({
         )}
 
         {loading && (
-          <div className="w-full flex justify-start px-3 py-1 my-1">
-            <span className="text-xs italic text-gray-500 dark:text-gray-400">
-              Typing…
-            </span>
+          <div className="w-full flex items-center gap-2 px-3 py-2 my-1 text-gray-500 dark:text-gray-400">
+            {/* 🔄 Animated Lucide Loader */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ repeat: Infinity, duration: 1.2, ease: "linear" }}
+            >
+              <Loader2 size={18} className="text-purple-500" />
+            </motion.div>
+            <span className="text-xs italic">Typing…</span>
           </div>
         )}
       </main>

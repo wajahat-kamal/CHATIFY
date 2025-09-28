@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";               // ✅ Correct import
+import axios from "axios";              
 import ChatBody from "./ChatBody";
 
 export default function ChatifyCard() {
