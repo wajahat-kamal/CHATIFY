@@ -1,8 +1,9 @@
 import { useSelector } from "react-redux";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import ChatifyCard from "./components/ChatifyCard";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
+import Home from "./pages/Home";
+
 
 export default function App() {
   const { user } = useSelector((state) => state.auth);
@@ -12,10 +13,9 @@ export default function App() {
       <Routes>
         <Route
           path="/"
-          element={<ChatifyCard /> }
+          element={true ? <Home /> : <Login/>}
         />
 
-        {/* Login page route */}
         <Route
           path="/login"
           element={user ? <Navigate to="/" replace /> : <Login />}

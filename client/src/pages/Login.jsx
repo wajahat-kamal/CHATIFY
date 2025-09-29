@@ -1,7 +1,5 @@
 import { motion } from "framer-motion";
 import { LogIn } from "lucide-react";
-import botImage from "../assets/chatbot.avif";
-import userImage from "../assets/user-avatar.png";
 
 export default function Login() {
   return (
