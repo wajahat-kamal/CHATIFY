@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import ChatBody from "./ChatBody";
-import { motion } from "framer-motion"; 
 
 export default function ChatifyCard() {
   const [messages, setMessages] = useState([]);
@@ -43,11 +42,7 @@ export default function ChatifyCard() {
                  bg-gradient-to-br from-gray-900 via-gray-800 to-black
                  transition-colors duration-700"
     >
-      {/* ✅ Motion container for fade + slide effect */}
-      <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
+      <section
         aria-label="Chat window"
         className="flex flex-col overflow-hidden
                    w-full sm:w-[420px] h-screen sm:h-[550px]
@@ -63,7 +58,7 @@ export default function ChatifyCard() {
           loading={loading}
           handleSend={handleSend}
         />
-      </motion.section>
+      </section>
     </div>
   );
 }
