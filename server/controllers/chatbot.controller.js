@@ -1,8 +1,6 @@
-import Bot from "../models/bot.model.js";
-import User from "../models/user.model.js";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY); 
+const ai = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 export const message = async (req, res) => {
   try {
@@ -15,26 +13,16 @@ export const message = async (req, res) => {
       });
     }
 
-    const userMsg = await User.create({
-      sender: "user",
-      text: text.trim(),
-    });
+    const model = ai.getGenerativeModel({ model: "gemini-2.0-flash" });
 
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-    const result = await model.generateContent(text.trim());
-    const geminiReply = result.response.text();
-    
-    const botMsg = await Bot.create({
-      sender: "bot",
-      text: geminiReply,
-    });
+    const result = await model.generateContent(text);
+
+    const output = result.response.text();
 
     return res.status(201).json({
       success: true,
-      userMessage: userMsg.text,
-      botReply: botMsg.text,
+      response: output,
     });
-
   } catch (error) {
     console.error("Error handling message:", error);
 
