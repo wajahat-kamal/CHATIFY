@@ -3,6 +3,7 @@ import { Send, Loader2 } from "lucide-react";
 import emptyStateBot from "../assets/chatbot.png";
 import botImage from "../assets/chatbot.avif";
 import userImage from "../assets/user-avatar.png";
+import { useSelector } from "react-redux";
 
 export default function ChatBody({
   messages,
@@ -11,6 +12,10 @@ export default function ChatBody({
   loading,
   handleSend,
 }) {
+
+  const { user } = useSelector((state) => state.auth);
+
+
   const inputClasses = `
     flex-1 rounded-lg border border-gray-300 dark:border-gray-600 px-3 py-2 text-sm
     bg-white/70 dark:bg-gray-900/70 text-gray-800 dark:text-gray-100
@@ -40,16 +45,52 @@ export default function ChatBody({
           <h1 className="text-xl font-bold tracking-wide">CHATIFY</h1>
         </div>
 
-        <button
-          aria-label="User settings"
-          className="focus:outline-none hover:scale-105 transition-transform duration-200"
-        >
-          <img
-            src={userImage}
-            alt="User avatar"
-            className="w-8 h-8 rounded-full object-cover shadow-md ring-2 ring-purple-500/40"
-          />
-        </button>
+        {user ? (
+  <button
+    aria-label="User settings"
+    className="
+      relative focus:outline-none 
+      hover:scale-105 active:scale-95
+      transition-transform duration-200
+      group
+    "
+  >
+    <img
+      src={userImage}
+      alt="User avatar"
+      className="
+        w-9 h-9 rounded-full object-cover
+        shadow-md ring-2 ring-purple-500/40
+        group-hover:ring-purple-500/70
+        transition duration-300
+      "
+    />
+    <span
+      className="
+        absolute inset-0 rounded-full
+        bg-purple-500/20 blur-md opacity-0
+        group-hover:opacity-100 transition duration-300
+      "
+    />
+  </button>
+) : (
+  <button
+    className="
+      px-4 py-1.5 rounded-full
+      bg-purple-600 hover:bg-purple-700
+      text-white text-sm font-medium
+      shadow-md
+      focus:outline-none focus:ring-2 focus:ring-purple-400
+      active:scale-95
+      transition-all duration-300
+    "
+  >
+    Login
+  </button>
+)}
+
+
+       
       </header>
 
       {/* Chat Body */}
