@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";              
+import axios from "axios";
 import ChatBody from "./ChatBody";
 
 export default function ChatifyCard() {
@@ -10,20 +10,20 @@ export default function ChatifyCard() {
   const handleSend = async (e) => {
     e.preventDefault();
     if (!input.trim()) return;
+    setMessages((prev) => [...prev, { text: input, sender: "user" }]);
 
     try {
       setLoading(true);
 
       const { data } = await axios.post(
         "http://localhost:7000/bot/v1/message",
-        { text: input.trim() }
+        { text: input }
       );
 
       if (data.success) {
         setMessages((prev) => [
           ...prev,
-          { text: data.userMessage, sender: "user" },
-          { text: data.botReply, sender: "bot" },
+          { text: data.response, sender: "bot" },
         ]);
         setInput("");
       } else {
