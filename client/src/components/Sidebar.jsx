@@ -53,37 +53,26 @@ function Sidebar() {
               key={chat._id}
               className="flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-[#80609F]/20 dark:bg-[#2A2430] hover:bg-gray-100 dark:hover:bg-[#3A3242] transition-colors group"
             >
-              {/* Left Side: Avatar + Chat Info */}
-              <div className="flex items-center gap-3">
-                <img
-                  src={chat.avatar || "/avatar.png"}
-                  alt={chat.name}
-                  className="w-8 h-8 rounded-full object-cover border border-gray-300 dark:border-[#80609F]/30"
-                />
-                <div>
-                  <p className="font-medium text-sm text-gray-800 dark:text-gray-100">
-                    {chat.name}
-                  </p>
-                  <p className="text-xs text-gray-500 dark:text-[#B1A6C0] truncate max-w-[160px]">
-                    {chat.messages.length > 0
-                      ? chat.messages[0].content.slice(0, 40)
-                      : "No messages yet"}
-                  </p>
-                </div>
-              </div>
-
-              {/* Right Side: Timestamp + Delete */}
-              <div className="flex items-center gap-2">
+              <div className="flex flex-col">
+                <p className="truncate font-medium text-sm text-gray-800 dark:text-gray-100">
+                  {chat.messages.length > 0
+                    ? chat.messages[0].content.slice(0, 32)
+                    : chat.name}
+                </p>
                 <span className="text-[10px] text-gray-400 dark:text-[#B1A6C0]">
                   {new Date(chat.updatedAt).toLocaleTimeString([], {
                     hour: "2-digit",
                     minute: "2-digit",
                   })}
                 </span>
+              </div>
+
+              <div className="flex items-center gap-2">
                 <button className="hidden group-hover:block text-gray-400 hover:text-red-500 transition">
                   <Trash2 size={16} />
                 </button>
               </div>
+              
             </div>
           ))}
       </div>
