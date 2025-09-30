@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Search, Plus, Trash2 } from "lucide-react";
 import { useAppContext } from "../context/AppContext";
 import chatbot from "../assets/chatbot.avif";
+import moment from "moment";
 
 function Sidebar() {
   const { user, chats, theme, setTheme, setSelectedChat } = useAppContext();
@@ -51,7 +52,7 @@ function Sidebar() {
           .map((chat) => (
             <div
               key={chat._id}
-              className="flex items-center justify-between p-2 rounded-xl border border-gray-200 dark:border-[#80609F]/20 
+              className="flex items-center justify-between p-2 rounded-md border border-gray-200 dark:border-[#80609F]/20 
                    dark:bg-[#1C1522] bg-white/80 backdrop-blur-sm
                    hover:bg-gray-50 dark:hover:bg-[#2A2130] transition-all duration-200 shadow-sm"
             >
@@ -62,11 +63,8 @@ function Sidebar() {
                     ? chat.messages[0].content.slice(0, 32)
                     : chat.name}
                 </p>
-                <span className="text-[11px] text-gray-500 dark:text-[#B1A6C0] mt-0.5">
-                  {new Date(chat.updatedAt).toLocaleTimeString([], {
-                    hour: "2-digit",
-                    minute: "2-digit",
-                  })}
+                <span className="text-[11px] font-medium text-gray-500 dark:text-[#B1A6C0] mt-0.5 italic">
+                  {moment(chat.updatedAt).fromNow()}
                 </span>
               </div>
 
