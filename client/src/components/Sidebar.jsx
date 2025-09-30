@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Search, Plus } from "lucide-react";
+import { Search, Plus, Trash2 } from "lucide-react";
 import { useAppContext } from "../context/AppContext";
-import chatbot from "../assets/chatbot.avif"
+import chatbot from "../assets/chatbot.avif";
 
 function Sidebar() {
   const { user, chats, theme, setTheme, setSelectedChat } = useAppContext();
@@ -11,19 +11,13 @@ function Sidebar() {
     <div className="h-screen min-w-72 p-5 flex flex-col dark:bg-gradient-to-b from-[#242124] to-black dark:text-white border-r border-[#80609F]/40 backdrop-blur-2xl">
       {/* Logo */}
       <div className="flex items-center gap-2">
-        <img
-          src={chatbot}
-          alt="Chatify Logo"
-          className="w-8 h-8 rounded-md"
-        />
+        <img src={chatbot} alt="Chatify Logo" className="w-8 h-8 rounded-md" />
         <h1 className="text-3xl font-bold tracking-wide">CHATIFY</h1>
       </div>
-
       {/* New chat button */}
       <button className="mt-5 flex items-center justify-center gap-2 py-3 rounded-md bg-gradient-to-r from-[#A456F7] to-[#3D61F6] text-white font-medium shadow-md hover:scale-[1.02] transition-transform">
         <Plus size={18} /> New Chat
       </button>
-
       {/* Search input */}
       <div className="relative mt-5">
         <Search
@@ -39,26 +33,59 @@ function Sidebar() {
         />
       </div>
 
-      {/* recent Chats */}
-      {chats.length > 0 && <p className="mt-4 text-xs">Recent Chats</p>}
-      <div>
-        {
-          chats.filter((chat) => chat.messages[0]? chat.messages?.content.toLowerCase().includes(search.toLowerCase) : chat.name.toLowerCase.includes(search.toLowerCase)).map((chat) => (
-            <div key={chat._id} className="p-2 px-4 border border-gray-300 dark:bg-[#57317C] dark:border-[#80609F]/15">
-              <div>
-                <p>
-                  {chat.messages.length > 0 ? chat.messages[0].content.slice(0, 32) :chat.name}
-                </p>
-                <p className="dark:text-[#B1A6C0] text-gray-50 text-xs">
-                  {chat.updatedAt}
-                </p>
-                <button className=" "> 
-                  {/* lucide react dustbin icon */}
+      {/* Recent Chats */}
+      {chats.length > 0 && (
+        <p className="mt-6 mb-2 text-xs uppercase tracking-wide text-gray-500 dark:text-[#B1A6C0]">
+          Recent Chats
+        </p>
+      )}
+      <div className="space-y-2 overflow-y-auto max-h-[50vh] pr-1">
+        {chats
+          .filter((chat) =>
+            chat.messages.length > 0
+              ? chat.messages[0].content
+                  .toLowerCase()
+                  .includes(search.toLowerCase())
+              : chat.name.toLowerCase().includes(search.toLowerCase())
+          )
+          .map((chat) => (
+            <div
+              key={chat._id}
+              className="flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-[#80609F]/20 dark:bg-[#2A2430] hover:bg-gray-100 dark:hover:bg-[#3A3242] transition-colors group"
+            >
+              {/* Left Side: Avatar + Chat Info */}
+              <div className="flex items-center gap-3">
+                <img
+                  src={chat.avatar || "/avatar.png"}
+                  alt={chat.name}
+                  className="w-8 h-8 rounded-full object-cover border border-gray-300 dark:border-[#80609F]/30"
+                />
+                <div>
+                  <p className="font-medium text-sm text-gray-800 dark:text-gray-100">
+                    {chat.name}
+                  </p>
+                  <p className="text-xs text-gray-500 dark:text-[#B1A6C0] truncate max-w-[160px]">
+                    {chat.messages.length > 0
+                      ? chat.messages[0].content.slice(0, 40)
+                      : "No messages yet"}
+                  </p>
+                </div>
+              </div>
+
+              {/* Right Side: Timestamp + Delete */}
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] text-gray-400 dark:text-[#B1A6C0]">
+                  {new Date(chat.updatedAt).toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </span>
+                <button className="hidden group-hover:block text-gray-400 hover:text-red-500 transition">
+                  <Trash2 size={16} />
                 </button>
               </div>
             </div>
-          ))
-        }
+          ))}
       </div>
     </div>
   );
