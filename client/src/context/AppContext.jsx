@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { dummyUserData } from "../assets/Data";
+import { dummyChats, dummyUser } from "../assets/Data";
 const AppContext = createContext();
 
 const AppContextProvider = ({ children }) => {
@@ -14,11 +14,17 @@ const AppContextProvider = ({ children }) => {
   );
 
   const fetchUser = () => {
-    setUser(dummyUserData);
+    setUser(dummyUser);
   };
+
+  const fetchUserChats = () => {
+    setChats(dummyChats)
+    setSelectedChat(dummyChats[0])
+  }
 
   useEffect(() => {
     fetchUser();
+    fetchUserChats()
   }, []);
 
   const value = {
