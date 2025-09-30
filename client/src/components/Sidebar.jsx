@@ -38,6 +38,28 @@ function Sidebar() {
           className="w-full pl-9 pr-3 py-3 text-sm rounded-lg border border-gray-400/30 dark:border-white/20 bg-transparent focus:outline-none focus:ring-1 focus:ring-[#A456F7] placeholder:text-gray-400"
         />
       </div>
+
+      {/* recent Chats */}
+      {chats.length > 0 && <p className="mt-4 text-xs">Recent Chats</p>}
+      <div>
+        {
+          chats.filter((chat) => chat.messages[0]? chat.messages?.content.toLowerCase().includes(search.toLowerCase) : chat.name.toLowerCase.includes(search.toLowerCase)).map((chat) => (
+            <div key={chat._id} className="p-2 px-4 border border-gray-300 dark:bg-[#57317C] dark:border-[#80609F]/15">
+              <div>
+                <p>
+                  {chat.messages.length > 0 ? chat.messages[0].content.slice(0, 32) :chat.name}
+                </p>
+                <p className="dark:text-[#B1A6C0] text-gray-50 text-xs">
+                  {chat.updatedAt}
+                </p>
+                <button className=" "> 
+                  {/* lucide react dustbin icon */}
+                </button>
+              </div>
+            </div>
+          ))
+        }
+      </div>
     </div>
   );
 }
