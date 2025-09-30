@@ -1,34 +1,25 @@
-import { useSelector } from "react-redux";
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import Home from "./pages/Home";
+import React from "react";
+import Sidebar from "./components/Sidebar";
+import {Routes, Route} from "react-router-dom"
+import ChatBox from "./components/ChatBox";
+import Credits from "./pages/Credits";
+import Community from "./pages/Community";
 
-
-export default function App() {
-  const { user } = useSelector((state) => state.auth);
-
+function App() {
   return (
-    <Router>
-      <Routes>
-        <Route
-          path="/"
-          element={true ? <Home /> : <Login/>}
-        />
-
-        <Route
-          path="/login"
-          element={user ? <Navigate to="/" replace /> : <Login />}
-        />
-
-        {/* Signup page route */}
-        <Route
-          path="/signup"
-          element={user ? <Navigate to="/" replace /> : <Signup />}
-        />
-
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </Router>
+    <>
+    <div className="dark:bg-gradient-to-b from-[#242124] to-[#00000] dark:text-white">
+      <div className="flex h-screen w-screen">
+        <Sidebar />
+        <Routes>
+          <Route path="/" element={<ChatBox/>}/>
+          <Route path="/credits" element={<Credits/>}/>
+          <Route path="/community" element={<Community/>}/>
+        </Routes>
+      </div>
+      </div>
+    </>
   );
 }
+
+export default App;
