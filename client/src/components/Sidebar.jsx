@@ -39,7 +39,7 @@ function Sidebar() {
           Recent Chats
         </p>
       )}
-      <div className="space-y-2 overflow-y-auto max-h-[50vh] pr-1">
+      <div className="space-y-2 overflow-y-auto max-h-[50vh] pr-2 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-[#4B3B58] scrollbar-track-transparent">
         {chats
           .filter((chat) =>
             chat.messages.length > 0
@@ -51,15 +51,18 @@ function Sidebar() {
           .map((chat) => (
             <div
               key={chat._id}
-              className="flex items-center justify-between p-3 rounded-lg border border-gray-200 dark:border-[#80609F]/20 dark:bg-[#2A2430] hover:bg-gray-100 dark:hover:bg-[#3A3242] transition-colors group"
+              className="flex items-center justify-between p-2 rounded-xl border border-gray-200 dark:border-[#80609F]/20 
+                   dark:bg-[#1C1522] bg-white/80 backdrop-blur-sm
+                   hover:bg-gray-50 dark:hover:bg-[#2A2130] transition-all duration-200 shadow-sm"
             >
-              <div className="flex flex-col">
-                <p className="truncate font-medium text-sm text-gray-800 dark:text-gray-100">
+              {/* Chat info */}
+              <div className="flex flex-col max-w-[70%]">
+                <p className="truncate text-sm font-medium text-gray-800 dark:text-gray-100">
                   {chat.messages.length > 0
                     ? chat.messages[0].content.slice(0, 32)
                     : chat.name}
                 </p>
-                <span className="text-[10px] text-gray-400 dark:text-[#B1A6C0]">
+                <span className="text-[11px] text-gray-500 dark:text-[#B1A6C0] mt-0.5">
                   {new Date(chat.updatedAt).toLocaleTimeString([], {
                     hour: "2-digit",
                     minute: "2-digit",
@@ -67,12 +70,10 @@ function Sidebar() {
                 </span>
               </div>
 
-              <div className="flex items-center gap-2">
-                <button className="hidden group-hover:block text-gray-400 hover:text-red-500 transition">
-                  <Trash2 size={16} />
-                </button>
-              </div>
-              
+              {/* Delete button */}
+              <button className="hidden group-hover:block text-gray-400 hover:text-red-500 transition">
+                <Trash2 size={16} />
+              </button>
             </div>
           ))}
       </div>
