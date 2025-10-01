@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Search, Plus, Trash2, Images, Diamond } from "lucide-react";
+import { Search, Plus, Trash2, Images, Diamond, Sun } from "lucide-react";
 import { useAppContext } from "../context/AppContext";
 import chatbot from "../assets/chatbot.avif";
 import moment from "moment";
@@ -97,7 +97,7 @@ function Sidebar() {
       {/* Credits purchase option */}
       <div
         onClick={() => navigate("/credits")}
-        className="flex items-center gap-3 p-3.5 mt-4 
+        className="flex items-center gap-3 p-3.5 mt-3 
              rounded-lg border border-gray-400/30 dark:border-white/20 
              bg-transparent hover:scale-[1.02] hover:shadow-md
              transition-all duration-200 cursor-pointer"
@@ -116,6 +116,22 @@ function Sidebar() {
           </p>
         </div>
       </div>
+
+      {/* Dark Mode Toggle */}
+      <div
+        className="flex items-center gap-3 p-3.5 mt-3
+             rounded-lg border border-gray-400/30 dark:border-white/20 
+             bg-transparent shadow-sm cursor-pointer"
+      >
+        <Sun
+          size={18}
+          className="text-gray-600 dark:text-gray-300 transition duration-200"
+        />
+        <p className="text-sm font-medium text-gray-700 dark:text-gray-200 transition">
+          Dark Mode
+        </p>
+      </div>
+
     </div>
   );
 }
