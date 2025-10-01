@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Search, Plus, Trash2, GalleryHorizontal, Images } from "lucide-react";
+import { Search, Plus, Trash2, Images } from "lucide-react";
 import { useAppContext } from "../context/AppContext";
 import chatbot from "../assets/chatbot.avif";
 import moment from "moment";
 
 function Sidebar() {
-  const { user, chats, theme, setTheme, setSelectedChat } = useAppContext();
+  const { user, chats, theme, setTheme, setSelectedChat, navigate } =
+    useAppContext();
   const [search, setSearch] = useState("");
 
   return (
@@ -79,17 +80,16 @@ function Sidebar() {
       {/* Community Images */}
       <div
         onClick={() => navigate("/community")}
-        className="flex items-center gap-3 p-3 mt-6 cursor-pointer 
-             border border-gray-200 dark:border-white/10 
-             rounded-lg bg-white/70 dark:bg-[#1C1522] 
-             hover:bg-gray-100 dark:hover:bg-[#2A2130] 
-             transition-all duration-200 shadow-sm group"
+        className="flex items-center gap-3 p-3.5 mt-6 
+             rounded-lg border border-gray-400/30 dark:border-white/20 
+             bg-transparent hover:scale-[1.02]
+             transition-all duration-200 shadow-sm group cursor-pointer"
       >
         <Images
           size={18}
-          className="text-gray-600 dark:text-gray-300 group-hover:text-purple-500 transition"
+          className="text-gray-600 dark:text-gray-300 group-hover:text-purple-500 transition duration-200"
         />
-        <p className="text-sm font-medium text-gray-700 dark:text-gray-200 group-hover:text-purple-500">
+        <p className="text-sm font-medium text-gray-700 dark:text-gray-200 group-hover:text-purple-500 transition">
           Community Images
         </p>
       </div>
