@@ -10,6 +10,7 @@ export const dummyUser = {
     {
       _id: "1",
       name: "Alice",
+      role: 'user',
       messages: [
         { content: "Hey, how are you?", sender: "Alice", createdAt: Date.now() },
       ],
@@ -18,6 +19,7 @@ export const dummyUser = {
     {
       _id: "2",
       name: "Bob",
+      role: 'bot',
       messages: [
         { content: "Don't forget our meeting tomorrow!", sender: "Bob", createdAt: Date.now() },
       ],
@@ -26,6 +28,7 @@ export const dummyUser = {
     {
       _id: "3",
       name: "Charlie",
+      role: 'user',
       messages: [],
       updatedAt: new Date().toISOString(),
     },

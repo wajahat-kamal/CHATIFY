@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useAppContext } from "../context/AppContext";
 import chatbot from "../assets/chatbot.avif";
+import Message from "./Message";
 
 function ChatBox() {
   const { selectedChat, theme } = useAppContext();
@@ -33,6 +34,11 @@ function ChatBox() {
             </p>
           </div>
         )}
+
+{messages.map((message, index) => (
+   <Message/>
+))}
+
       </div>
 
       {/* chat input */}
