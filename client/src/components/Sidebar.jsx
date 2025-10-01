@@ -8,7 +8,7 @@ import {
   Sun,
   User,
   LogOut,
-  Cross,
+  X,
 } from "lucide-react";
 import { useAppContext } from "../context/AppContext";
 import chatbot from "../assets/chatbot.avif";
@@ -20,8 +20,11 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
   const [search, setSearch] = useState("");
 
   return (
-    <div className="h-screen min-w-72 p-5 flex flex-col dark:bg-gradient-to-b from-[#242124] to-black dark:text-white border-r border-[#80609F]/40 backdrop-blur-2xl">
-      
+    <div
+      className={`h-screen min-w-72 p-5 flex flex-col dark:bg-gradient-to-b from-[#242124] to-black dark:text-white border-r border-[#80609F]/40 backdrop-blur-2xl ${
+        !isMenuOpen && "max-md:-translate-x-full"
+      }`}
+    >
       {/* Logo */}
       <div className="flex items-center gap-2">
         <img src={chatbot} alt="Chatify Logo" className="w-8 h-8 rounded-md" />
@@ -176,13 +179,14 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
         <div className="group-hover:block hidden">
           <LogOut size={18} className="text-gray-600 dark:text-gray-300" />
         </div>
-
       </div>
 
-    <div onClick={() => setIsMenuOpen(false)} className="absolute top-3 right-3 md:hidden block  w-5 h-5 cursor-pointer">
-      <Cross/>
-    </div>
-
+      <div
+        onClick={() => setIsMenuOpen(false)}
+        className="absolute top-3 right-3 md:hidden block  w-5 h-5 cursor-pointer"
+      >
+        <X />
+      </div>
     </div>
   );
 }
