@@ -82,17 +82,35 @@ function Sidebar() {
         onClick={() => navigate("/community")}
         className="flex items-center gap-3 p-3.5 mt-6 
              rounded-lg border border-gray-400/30 dark:border-white/20 
-             bg-transparent hover:scale-[1.02]
-             transition-all duration-200 shadow-sm group cursor-pointer"
+             bg-transparent hover:scale-[1.03]
+             transition-all duration-200 shadow-sm cursor-pointer"
       >
         <Images
           size={18}
-          className="text-gray-600 dark:text-gray-300 group-hover:text-purple-500 transition duration-200"
+          className="text-gray-600 dark:text-gray-300 transition duration-200"
         />
-        <p className="text-sm font-medium text-gray-700 dark:text-gray-200 group-hover:text-purple-500 transition">
+        <p className="text-sm font-medium text-gray-700 dark:text-gray-200 transition">
           Community Images
         </p>
       </div>
+
+        {/* Credits purchase option */}
+        <div
+        onClick={() => navigate("/community")}
+        className="flex items-center gap-3 p-3.5 mt-6 
+             rounded-lg border border-gray-400/30 dark:border-white/20 
+             bg-transparent hover:scale-[1.03]
+             transition-all duration-200 shadow-sm cursor-pointer"
+      >
+        <Images
+          size={18}
+          className="text-gray-600 dark:text-gray-300 transition duration-200"
+        />
+        <p className="text-sm font-medium text-gray-700 dark:text-gray-200 transition">
+          Community Images
+        </p>
+      </div>
+
     </div>
   );
 }
