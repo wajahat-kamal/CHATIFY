@@ -1,6 +1,7 @@
 import React from "react";
 import { User } from "lucide-react";
 import chatbot from "../assets/chatbot.avif";
+import { moment } from "moment";
 
 function Message({ message }) {
   const { role, content, timestamp } = message;
@@ -17,7 +18,7 @@ function Message({ message }) {
           >
             <p className="text-sm dark:text-primary">{content}</p>
             <span className="text-xs text-gray-400 dark:text-[#B1A6C0]">
-              {timestamp}
+              {moment(timestamp).fromNow()}
             </span>
           </div>
 
@@ -46,7 +47,7 @@ function Message({ message }) {
           >
             <p className="text-sm dark:text-primary reset-tw">{content}</p>
             <span className="text-xs text-gray-400 dark:text-[#B1A6C0] self-end">
-              {timestamp}
+              {moment(timestamp).fromNow()}
             </span>
           </div>
         </div>
