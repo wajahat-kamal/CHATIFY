@@ -14,13 +14,14 @@ import { useAppContext } from "../context/AppContext";
 import chatbot from "../assets/chatbot.avif";
 import moment from "moment";
 
-function Sidebar() {
+function Sidebar({ isMenuOpen, setIsMenuOpen }) {
   const { user, chats, theme, setTheme, setSelectedChat, navigate } =
     useAppContext();
   const [search, setSearch] = useState("");
 
   return (
     <div className="h-screen min-w-72 p-5 flex flex-col dark:bg-gradient-to-b from-[#242124] to-black dark:text-white border-r border-[#80609F]/40 backdrop-blur-2xl">
+      
       {/* Logo */}
       <div className="flex items-center gap-2">
         <img src={chatbot} alt="Chatify Logo" className="w-8 h-8 rounded-md" />
@@ -178,7 +179,7 @@ function Sidebar() {
 
       </div>
 
-    <div className="absolute top-3 right-3 md:hidden block  w-5 h-5 cursor-pointer">
+    <div onClick={() => setIsMenuOpen(false)} className="absolute top-3 right-3 md:hidden block  w-5 h-5 cursor-pointer">
       <Cross/>
     </div>
 
