@@ -8,6 +8,7 @@ import {
   Sun,
   User,
   LogOut,
+  Cross,
 } from "lucide-react";
 import { useAppContext } from "../context/AppContext";
 import chatbot from "../assets/chatbot.avif";
@@ -176,6 +177,11 @@ function Sidebar() {
         </div>
 
       </div>
+
+    <div className="absolute top-3 right-3 md:hidden block  w-5 h-5 cursor-pointer">
+      <Cross/>
+    </div>
+
     </div>
   );
 }
