@@ -67,6 +67,11 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
           .map((chat) => (
             <div
               key={chat._id}
+              onClick={() => {
+                setSelectedChat(chat);
+                navigate("/");
+                setIsMenuOpen(false);
+              }}
               className="flex items-center justify-between p-2 rounded-md border border-gray-200 dark:border-[#80609F]/20 
                    dark:bg-[#1C1522] bg-white/80 backdrop-blur-sm
                    hover:bg-gray-50 dark:hover:bg-[#2A2130] transition-all duration-200 shadow-sm"
@@ -93,7 +98,10 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
 
       {/* Community Images */}
       <div
-        onClick={() => navigate("/community")}
+        onClick={() => {
+          navigate("/community");
+          setIsMenuOpen(false);
+        }}
         className="flex items-center gap-3 p-3 mt-6 
              rounded-lg border border-gray-400/30 dark:border-white/20 
              bg-transparent hover:scale-[1.02]
@@ -110,7 +118,10 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
 
       {/* Credits purchase option */}
       <div
-        onClick={() => navigate("/credits")}
+        onClick={() => {
+          navigate("/credits");
+          setIsMenuOpen(false);
+        }}
         className="flex items-center gap-3 p-3 mt-3 
              rounded-lg border border-gray-400/30 dark:border-white/20 
              bg-transparent hover:scale-[1.02] hover:shadow-md
