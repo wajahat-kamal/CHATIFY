@@ -11,7 +11,7 @@ function App() {
 
   return (
     <>
-    {!isMenuOpen && <button onClick={() => setIsMenuOpen(true)} className="md:hidden block fixed top-5 right-5 bg-purple-600 text-white p-2 rounded-full"><Menu/></button>}
+    {!isMenuOpen && <button onClick={() => setIsMenuOpen(true)} className="md:hidden block fixed top-5 left-5 bg-purple-600 text-white p-2 rounded-full"><Menu/></button>}
     <div className="dark:bg-gradient-to-b from-[#242124] to-black dark:text-white min-h-screen">
       <div className="flex w-screen h-screen">
         <Sidebar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />

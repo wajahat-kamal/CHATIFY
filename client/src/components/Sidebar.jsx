@@ -21,23 +21,35 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
 
   return (
     <div
-      className={`h-screen min-w-72 p-5 flex flex-col dark:bg-gradient-to-b from-[#242124] to-black dark:text-white border-r border-[#80609F]/40 backdrop-blur-2xl ${
-        !isMenuOpen && "max-md:-translate-x-full"
-      }`}
+      className={`h-screen min-w-72 p-5 flex flex-col 
+      bg-white dark:bg-gradient-to-b dark:from-[#242124] dark:to-black 
+      text-gray-900 dark:text-white border-r border-gray-200/60 dark:border-[#80609F]/40 
+      backdrop-blur-2xl transition-transform duration-300 ease-in-out 
+      fixed md:static z-40 top-0 left-0
+      ${!isMenuOpen ? "-translate-x-full md:translate-x-0" : "translate-x-0"}`}
     >
       {/* Logo */}
       <div className="flex items-center gap-2">
-        <img src={chatbot} alt="Chatify Logo" className="w-8 h-8 rounded-md" />
-        <h1 className="text-3xl font-bold tracking-wide">CHATIFY</h1>
+        <img
+          src={chatbot}
+          alt="Chatify Logo"
+          className="w-9 h-9 rounded-md shadow-md"
+        />
+        <h1 className="text-2xl font-bold tracking-wide">CHATIFY</h1>
       </div>
+
       {/* New chat button */}
-      <button className="mt-5 flex items-center justify-center gap-2 py-3 rounded-md bg-gradient-to-r from-[#A456F7] to-[#3D61F6] text-white font-medium shadow-md hover:scale-[1.02] transition-transform">
+      <button className="mt-6 flex items-center justify-center gap-2 py-3 rounded-lg 
+        bg-gradient-to-r from-[#A456F7] to-[#3D61F6] 
+        text-white font-medium shadow-md hover:scale-[1.02] 
+        transition-transform duration-200">
         <Plus size={18} /> New Chat
       </button>
+
       {/* Search input */}
-      <div className="relative mt-5">
+      <div className="relative mt-6">
         <Search
-          className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500"
           size={16}
         />
         <input
@@ -45,7 +57,11 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
           value={search}
           type="text"
           placeholder="Search Conversation"
-          className="w-full pl-9 pr-3 py-3 text-sm rounded-lg border border-gray-400/30 dark:border-white/20 bg-transparent focus:outline-none focus:ring-1 focus:ring-[#A456F7] placeholder:text-gray-400"
+          className="w-full pl-9 pr-3 py-2.5 text-sm rounded-lg border 
+            border-gray-300 dark:border-white/20 
+            bg-gray-50 dark:bg-transparent 
+            focus:outline-none focus:ring-1 focus:ring-[#A456F7] 
+            placeholder:text-gray-400 dark:placeholder:text-gray-500"
         />
       </div>
 
@@ -55,7 +71,8 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
           Recent Chats
         </p>
       )}
-      <div className="space-y-2 overflow-y-auto max-h-[50vh] pr-2 scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-[#4B3B58] scrollbar-track-transparent">
+      <div className="space-y-2 overflow-y-auto max-h-[40vh] pr-1 
+        scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-[#4B3B58] scrollbar-track-transparent">
         {chats
           .filter((chat) =>
             chat.messages.length > 0
@@ -72,9 +89,11 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
                 navigate("/");
                 setIsMenuOpen(false);
               }}
-              className="flex items-center justify-between p-2 rounded-md border border-gray-200 dark:border-[#80609F]/20 
-                   dark:bg-[#1C1522] bg-white/80 backdrop-blur-sm
-                   hover:bg-gray-50 dark:hover:bg-[#2A2130] transition-all duration-200 shadow-sm"
+              className="flex items-center justify-between py-2 px-3 rounded-lg 
+                border border-gray-200 dark:border-[#80609F]/20 
+                bg-gray-50 dark:bg-[#1C1522] 
+                hover:bg-gray-100 dark:hover:bg-[#2A2130] 
+                transition-all duration-200 shadow-sm group cursor-pointer"
             >
               {/* Chat info */}
               <div className="flex flex-col max-w-[70%]">
@@ -89,7 +108,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
               </div>
 
               {/* Delete button */}
-              <button className="hidden group-hover:block text-gray-400 hover:text-red-500 transition">
+              <button className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-500 transition">
                 <Trash2 size={16} />
               </button>
             </div>
@@ -102,33 +121,33 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
           navigate("/community");
           setIsMenuOpen(false);
         }}
-        className="flex items-center gap-3 p-3 mt-6 
-             rounded-lg border border-gray-400/30 dark:border-white/20 
-             bg-transparent hover:scale-[1.02]
-             transition-all duration-200 shadow-sm cursor-pointer"
+        className="flex items-center gap-3 p-3 mt-4 rounded-lg border 
+          border-gray-300/50 dark:border-white/20 
+          bg-gray-50 dark:bg-transparent 
+          hover:scale-[1.02] transition-all duration-200 shadow-sm cursor-pointer"
       >
         <Images
           size={18}
-          className="text-gray-600 dark:text-gray-300 transition duration-200"
+          className="text-gray-600 dark:text-gray-300 group-hover:text-purple-500 transition"
         />
-        <p className="text-sm font-medium text-gray-700 dark:text-gray-200 transition">
+        <p className="text-sm font-medium text-gray-700 dark:text-gray-200">
           Community Images
         </p>
       </div>
 
-      {/* Credits purchase option */}
+      {/* Credits */}
       <div
         onClick={() => {
           navigate("/credits");
           setIsMenuOpen(false);
         }}
-        className="flex items-center gap-3 p-3 mt-3 
-             rounded-lg border border-gray-400/30 dark:border-white/20 
-             bg-transparent hover:scale-[1.02] hover:shadow-md
-             transition-all duration-200 cursor-pointer"
+        className="flex items-center gap-3 p-3 mt-3 rounded-lg border 
+          border-gray-300/50 dark:border-white/20 
+          bg-gray-50 dark:bg-transparent 
+          hover:scale-[1.02] hover:shadow-md 
+          transition-all duration-200 cursor-pointer"
       >
-        <Diamond size={20} className="text-gray-600 dark:text-gray-300" />
-
+        <Diamond size={20} className="text-purple-500" />
         <div className="flex flex-col">
           <p className="text-sm font-semibold text-gray-800 dark:text-gray-100">
             Credits: {user?.credits ?? 0}
@@ -141,16 +160,16 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
 
       {/* Dark Mode Toggle */}
       <div
-        className="flex items-center justify-between p-3 mt-3 
-             rounded-lg border border-gray-400/30 dark:border-white/20 
-             bg-transparent shadow-sm cursor-pointer"
+        className="flex items-center justify-between p-3 mt-3 rounded-lg border 
+          border-gray-300/50 dark:border-white/20 
+          bg-gray-50 dark:bg-transparent shadow-sm"
       >
         <div className="flex items-center gap-2">
           <Sun
             size={18}
             className="text-gray-600 dark:text-gray-300 transition duration-200"
           />
-          <p className="text-sm font-medium text-gray-700 dark:text-gray-200 transition">
+          <p className="text-sm font-medium text-gray-700 dark:text-gray-200">
             Dark Mode
           </p>
         </div>
@@ -161,40 +180,37 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
             onChange={() => setTheme(theme === "dark" ? "light" : "dark")}
             className="sr-only peer"
           />
-          <div className="w-10 h-5 bg-gray-400 peer-checked:bg-purple-500 rounded-full transition-colors"></div>
+          <div className="w-10 h-5 bg-gray-300 peer-checked:bg-purple-500 rounded-full transition-colors"></div>
           <div
-            className="absolute left-0.5 top-0.5 w-4 h-4 bg-white 
-                 rounded-full border shadow-sm 
-                 peer-checked:translate-x-5 transition-transform"
+            className="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full border shadow-sm 
+              peer-checked:translate-x-5 transition-transform"
           ></div>
         </label>
       </div>
 
       {/* User Account */}
       <div
-        className="flex items-center justify-between gap-3 p-3 mt-3 
-             rounded-lg border border-gray-400/30 dark:border-white/20 
-             bg-transparent cursor-pointer group "
+        className="flex items-center justify-between gap-3 p-3 mt-3 rounded-lg border 
+          border-gray-300/50 dark:border-white/20 
+          bg-gray-50 dark:bg-transparent cursor-pointer group"
       >
         <div className="flex items-center gap-2">
-          <div className="bg-gray-300 dark:bg-purple-500 rounded-full p-1.5">
-            <User size={18} className="text-gray-600 dark:text-gray-300 " />
+          <div className="bg-gray-200 dark:bg-purple-600 rounded-full p-1.5">
+            <User size={18} className="text-gray-700 dark:text-gray-100" />
           </div>
-
           <div className="flex flex-col">
             <p className="text-sm font-semibold text-gray-800 dark:text-gray-100 truncate">
               {user ? user?.name : "User Name"}
             </p>
           </div>
         </div>
-        <div className="group-hover:block hidden">
-          <LogOut size={18} className="text-gray-600 dark:text-gray-300" />
-        </div>
+        <LogOut className="hidden group-hover:block text-gray-600 dark:text-gray-300 hover:text-red-500 transition" size={18} />
       </div>
 
+      {/* Close button for mobile */}
       <div
         onClick={() => setIsMenuOpen(false)}
-        className="absolute top-3 right-3 md:hidden block  w-5 h-5 cursor-pointer"
+        className="absolute top-4 right-4 md:hidden block w-6 h-6 text-gray-700 dark:text-gray-200 cursor-pointer"
       >
         <X />
       </div>
