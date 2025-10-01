@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Search, Plus, Trash2, Images, CreditCard } from "lucide-react";
+import { Search, Plus, Trash2, Images, Diamond } from "lucide-react";
 import { useAppContext } from "../context/AppContext";
 import chatbot from "../assets/chatbot.avif";
 import moment from "moment";
@@ -102,9 +102,9 @@ function Sidebar() {
              bg-transparent hover:scale-[1.02] hover:shadow-md
              transition-all duration-200 cursor-pointer"
       >
-        <CreditCard
+        <Diamond
           size={20}
-          className="text-gray-600 dark:text-gray-30"
+          className="text-gray-600 dark:text-gray-300"
         />
 
         <div className="flex flex-col">
