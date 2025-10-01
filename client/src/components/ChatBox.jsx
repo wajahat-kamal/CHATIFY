@@ -36,7 +36,7 @@ function ChatBox() {
         )}
 
 {messages.map((message, index) => (
-   <Message/>
+   <Message key={index} message={message}/>
 ))}
 
       </div>
