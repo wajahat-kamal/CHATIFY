@@ -1,27 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { useAppContext } from "../context/AppContext";
+import React, { useEffect, useState } from 'react'
+import { useAppContext } from '../context/AppContext'
+import chatbot from "../assets/chatbot.avif";
 
 function ChatBox() {
-  const { selectedChat, theme } = useAppContext();
 
-  const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const {selectedChat, theme} = useAppContext();
 
+  const [messages, setMessages] = useState([])
+  const [loading, setLoading] = useState(false)
+  
   useEffect(() => {
     if (selectedChat) {
-      setMessages(selectedChat.messages);
+      setMessages(selectedChat.messages)
     }
-  }, [selectedChat]);
+  }, [selectedChat])
+  
 
   return (
-    <div className="flex justify-between flex-col flex-1 m-5 xl:mx-30 max-md:mt-14 2xl:pr-40">
+    <div>
       {/* messages */}
-      <div></div>
+      <div>
+
+      </div>
 
       {/* chat input */}
-      <form></form>
+      <form>
+
+      </form>
     </div>
-  );
+  )
 }
 
-export default ChatBox;
+export default ChatBox
