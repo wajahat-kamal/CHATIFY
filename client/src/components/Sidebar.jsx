@@ -80,7 +80,7 @@ function Sidebar() {
       {/* Community Images */}
       <div
         onClick={() => navigate("/community")}
-        className="flex items-center gap-3 p-3.5 mt-6 
+        className="flex items-center gap-3 p-3 mt-6 
              rounded-lg border border-gray-400/30 dark:border-white/20 
              bg-transparent hover:scale-[1.02]
              transition-all duration-200 shadow-sm cursor-pointer"
@@ -97,15 +97,12 @@ function Sidebar() {
       {/* Credits purchase option */}
       <div
         onClick={() => navigate("/credits")}
-        className="flex items-center gap-3 p-3.5 mt-3 
+        className="flex items-center gap-3 p-3 mt-3 
              rounded-lg border border-gray-400/30 dark:border-white/20 
              bg-transparent hover:scale-[1.02] hover:shadow-md
              transition-all duration-200 cursor-pointer"
       >
-        <Diamond
-          size={20}
-          className="text-gray-600 dark:text-gray-300"
-        />
+        <Diamond size={20} className="text-gray-600 dark:text-gray-300" />
 
         <div className="flex flex-col">
           <p className="text-sm font-semibold text-gray-800 dark:text-gray-100">
@@ -119,19 +116,20 @@ function Sidebar() {
 
       {/* Dark Mode Toggle */}
       <div
-        className="flex items-center gap-3 p-3.5 mt-3
+        className="flex items-center gap-3 p-3 mt-3
              rounded-lg border border-gray-400/30 dark:border-white/20 
              bg-transparent shadow-sm cursor-pointer"
       >
-        <Sun
-          size={18}
-          className="text-gray-600 dark:text-gray-300 transition duration-200"
-        />
-        <p className="text-sm font-medium text-gray-700 dark:text-gray-200 transition">
-          Dark Mode
-        </p>
+        <div>
+          <Sun
+            size={18}
+            className="text-gray-600 dark:text-gray-300 transition duration-200"
+          />
+          <p className="text-sm font-medium text-gray-700 dark:text-gray-200 transition">
+            Dark Mode
+          </p>
+        </div>
       </div>
-
     </div>
   );
 }
