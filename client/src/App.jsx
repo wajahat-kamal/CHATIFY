@@ -13,8 +13,7 @@ function App() {
       {!isMenuOpen && (
         <img
           onClick={() => setIsMenuOpen(true)}
-          aria-label="Open Menu"
-          className="md:hidden fixed top-5 left-5 w-9 h-9 not-dark:invert"
+          className="md:hidden fixed top-5 left-5 w-10 h-10 not-dark:invert"
           src={menu}
           alt="Menu Icon"
         />
