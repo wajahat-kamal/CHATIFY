@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Search, Plus, Trash2, Images } from "lucide-react";
+import { Search, Plus, Trash2, Images, CreditCard } from "lucide-react";
 import { useAppContext } from "../context/AppContext";
 import chatbot from "../assets/chatbot.avif";
 import moment from "moment";
@@ -82,7 +82,7 @@ function Sidebar() {
         onClick={() => navigate("/community")}
         className="flex items-center gap-3 p-3.5 mt-6 
              rounded-lg border border-gray-400/30 dark:border-white/20 
-             bg-transparent hover:scale-[1.03]
+             bg-transparent hover:scale-[1.02]
              transition-all duration-200 shadow-sm cursor-pointer"
       >
         <Images
@@ -94,23 +94,28 @@ function Sidebar() {
         </p>
       </div>
 
-        {/* Credits purchase option */}
-        <div
-        onClick={() => navigate("/community")}
-        className="flex items-center gap-3 p-3.5 mt-6 
+      {/* Credits purchase option */}
+      <div
+        onClick={() => navigate("/credits")}
+        className="flex items-center gap-3 p-3.5 mt-4 
              rounded-lg border border-gray-400/30 dark:border-white/20 
-             bg-transparent hover:scale-[1.03]
-             transition-all duration-200 shadow-sm cursor-pointer"
+             bg-transparent hover:scale-[1.02] hover:shadow-md
+             transition-all duration-200 cursor-pointer"
       >
-        <Images
-          size={18}
-          className="text-gray-600 dark:text-gray-300 transition duration-200"
+        <CreditCard
+          size={20}
+          className="text-gray-600 dark:text-gray-30"
         />
-        <p className="text-sm font-medium text-gray-700 dark:text-gray-200 transition">
-          Community Images
-        </p>
-      </div>
 
+        <div className="flex flex-col">
+          <p className="text-sm font-semibold text-gray-800 dark:text-gray-100">
+            Credits: {user?.credits ?? 0}
+          </p>
+          <p className="text-xs text-gray-500 dark:text-gray-400">
+            Purchase credits to use Chatify
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
