@@ -13,7 +13,7 @@ function App() {
       {!isMenuOpen && (
         <img
           onClick={() => setIsMenuOpen(true)}
-          className="md:hidden fixed top-5 left-5 w-10 h-10 not-dark:invert"
+          className="md:hidden fixed top-3 left-3 w-10 h-10 not-dark:invert"
           src={menu}
           alt="Menu Icon"
         />
