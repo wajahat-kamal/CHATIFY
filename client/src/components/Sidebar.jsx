@@ -116,11 +116,12 @@ function Sidebar() {
 
       {/* Dark Mode Toggle */}
       <div
-        className="flex items-center gap-3 p-3 mt-3
+        className="flex items-center justify-between p-3 mt-3 
              rounded-lg border border-gray-400/30 dark:border-white/20 
              bg-transparent shadow-sm cursor-pointer"
       >
-        <div>
+        {/* Left side: Icon + Label */}
+        <div className="flex items-center gap-2">
           <Sun
             size={18}
             className="text-gray-600 dark:text-gray-300 transition duration-200"
@@ -129,6 +130,17 @@ function Sidebar() {
             Dark Mode
           </p>
         </div>
+
+        {/* Right side: Toggle Switch */}
+        <label className="relative inline-flex items-center cursor-pointer">
+          <input type="checkbox" className="sr-only peer" />
+          <div className="w-10 h-5 bg-gray-400 peer-checked:bg-purple-500 rounded-full transition-colors"></div>
+          <div
+            className="absolute left-0.5 top-0.5 w-4 h-4 bg-white 
+                 rounded-full border shadow-sm 
+                 peer-checked:translate-x-5 transition-transform"
+          ></div>
+        </label>
       </div>
     </div>
   );
