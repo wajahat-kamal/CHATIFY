@@ -19,16 +19,17 @@ function ChatBox() {
       {/* messages */}
       <div className="flex-1 overflow-y-scroll mb-5">
         {messages.length === 0 && (
-          <div>
+          <div className="flex h-full text-primary">
             {/* logo */}
             <div className="flex items-center gap-2">
               <img
                 src={chatbot}
                 alt="Chatify Logo"
-                className="w-9 h-9 rounded-md shadow-md"
+                className="max-w-56 sm:max-w-68 rounded-md shadow-md"
               />
               <h1 className="text-2xl font-bold tracking-wide">CHATIFY</h1>
             </div>
+            <p>Ask me anything.</p>
           </div>
         )}
       </div>
