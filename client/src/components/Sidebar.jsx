@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Search, Plus, Trash2, Images, Diamond, Sun } from "lucide-react";
+import {
+  Search,
+  Plus,
+  Trash2,
+  Images,
+  Diamond,
+  Sun,
+  User,
+  LogOut,
+} from "lucide-react";
 import { useAppContext } from "../context/AppContext";
 import chatbot from "../assets/chatbot.avif";
 import moment from "moment";
@@ -120,7 +129,6 @@ function Sidebar() {
              rounded-lg border border-gray-400/30 dark:border-white/20 
              bg-transparent shadow-sm cursor-pointer"
       >
-        {/* Left side: Icon + Label */}
         <div className="flex items-center gap-2">
           <Sun
             size={18}
@@ -130,10 +138,13 @@ function Sidebar() {
             Dark Mode
           </p>
         </div>
-
-        {/* Right side: Toggle Switch */}
         <label className="relative inline-flex items-center cursor-pointer">
-          <input type="checkbox" className="sr-only peer" />
+          <input
+            type="checkbox"
+            checked={theme === "dark"}
+            onChange={() => setTheme(theme === "dark" ? "light" : "dark")}
+            className="sr-only peer"
+          />
           <div className="w-10 h-5 bg-gray-400 peer-checked:bg-purple-500 rounded-full transition-colors"></div>
           <div
             className="absolute left-0.5 top-0.5 w-4 h-4 bg-white 
@@ -141,6 +152,29 @@ function Sidebar() {
                  peer-checked:translate-x-5 transition-transform"
           ></div>
         </label>
+      </div>
+
+      {/* User Account */}
+      <div
+        className="flex items-center justify-between gap-3 p-3 mt-3 
+             rounded-lg border border-gray-400/30 dark:border-white/20 
+             bg-transparent cursor-pointer group "
+      >
+        <div className="flex items-center gap-2">
+          <div className="bg-gray-300 dark:bg-purple-500 rounded-full p-1.5">
+            <User size={18} className="text-gray-600 dark:text-gray-300 " />
+          </div>
+
+          <div className="flex flex-col">
+            <p className="text-sm font-semibold text-gray-800 dark:text-gray-100 truncate">
+              {user ? user?.name : "User Name"}
+            </p>
+          </div>
+        </div>
+        <div className="group-hover:block hidden">
+          <LogOut size={18} className="text-gray-600 dark:text-gray-300" />
+        </div>
+
       </div>
     </div>
   );
