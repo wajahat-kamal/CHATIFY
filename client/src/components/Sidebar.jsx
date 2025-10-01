@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Search, Plus, Trash2 } from "lucide-react";
+import { Search, Plus, Trash2, GalleryHorizontal, Images } from "lucide-react";
 import { useAppContext } from "../context/AppContext";
 import chatbot from "../assets/chatbot.avif";
 import moment from "moment";
@@ -74,6 +74,24 @@ function Sidebar() {
               </button>
             </div>
           ))}
+      </div>
+
+      {/* Community Images */}
+      <div
+        onClick={() => navigate("/community")}
+        className="flex items-center gap-3 p-3 mt-6 cursor-pointer 
+             border border-gray-200 dark:border-white/10 
+             rounded-lg bg-white/70 dark:bg-[#1C1522] 
+             hover:bg-gray-100 dark:hover:bg-[#2A2130] 
+             transition-all duration-200 shadow-sm group"
+      >
+        <Images
+          size={18}
+          className="text-gray-600 dark:text-gray-300 group-hover:text-purple-500 transition"
+        />
+        <p className="text-sm font-medium text-gray-700 dark:text-gray-200 group-hover:text-purple-500">
+          Community Images
+        </p>
       </div>
     </div>
   );
