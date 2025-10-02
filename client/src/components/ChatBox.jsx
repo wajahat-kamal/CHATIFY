@@ -16,7 +16,7 @@ function ChatBox() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-  }
+  };
 
   useEffect(() => {
     if (selectedChat) {
@@ -59,6 +59,7 @@ function ChatBox() {
 
       {/* Chat input */}
       <form
+        onSubmit={onSubmit}
         className="bg-white/70 dark:bg-[#2a1f3d]/50 border border-purple-300/30 dark:border-[#80609F]/30 
         rounded-full w-full max-w-2xl p-2.5 pl-4 mx-auto 
         flex items-center gap-3 shadow-md backdrop-blur-sm 
@@ -99,8 +100,7 @@ function ChatBox() {
           hover:scale-110 hover:shadow-lg hover:shadow-purple-500/40 
           transition-all duration-200 cursor-pointer"
         >
-          {loading ? <StopCircle size={20}/> : <SendHorizonal size={20} />}
-          
+          {loading ? <StopCircle size={20} /> : <SendHorizonal size={20} />}
         </button>
       </form>
     </div>
