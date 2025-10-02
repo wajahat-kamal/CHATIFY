@@ -6,18 +6,20 @@ function Loading() {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      navigate("/"); 
+      navigate("/");
     }, 8000);
 
     return () => clearTimeout(timeout);
   }, [navigate]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen w-screen bg-gradient-to-b from-[#531B81] to-[#29184B] text-white">
+    <div className="flex flex-col items-center justify-center h-screen w-full bg-gradient-to-b from-[#531B81] to-[#29184B] text-white">
       {/* Spinner */}
-      <div className="relative w-14 h-14">
-        <div className="absolute inset-0 rounded-full border-4 border-white/30 animate-ping"></div>
-        <div className="w-14 h-14 rounded-full border-4 border-white border-t-transparent animate-spin"></div>
+      <div className="flex items-center justify-center">
+        <div className="relative w-16 h-16">
+          <div className="absolute inset-0 rounded-full border-4 border-white/30 animate-ping"></div>
+          <div className="w-16 h-16 rounded-full border-4 border-white border-t-transparent animate-spin"></div>
+        </div>
       </div>
 
       {/* Text */}
