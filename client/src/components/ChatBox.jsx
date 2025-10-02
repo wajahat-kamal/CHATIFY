@@ -58,11 +58,15 @@ function ChatBox() {
       >
         {/* Mode Selector */}
         <select
-          className="text-sm px-2 py-1 rounded-full 
-          outline-none focus:ring-2 focus:ring-purple-400 transition"
+          className="text-sm px-3 py-1.5 rounded-full 
+             text-gray-600 dark:text-gray-200 cursor-pointer"
         >
-          <option value="text">Text</option>
-          <option value="image">Image</option>
+          <option className="text-gray-700 text-sm" value="text">
+            Text
+          </option>
+          <option className="text-gray-700 text-sm" value="image">
+            Image
+          </option>
         </select>
 
         {/* Input */}
