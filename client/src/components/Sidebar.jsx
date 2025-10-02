@@ -81,9 +81,9 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
                   .includes(search.toLowerCase())
               : chat.name.toLowerCase().includes(search.toLowerCase())
           )
-          .map((chat) => (
+          .map((chat, index) => (
             <div
-              key={chat._id}
+              key={chat._id || index} // ✅ fix: always unique key
               onClick={() => {
                 setSelectedChat(chat);
                 navigate("/");
@@ -103,7 +103,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
                     : chat.name}
                 </p>
                 <span className="text-[11px] font-medium text-gray-500 dark:text-[#B1A6C0] mt-0.5 italic">
-                  {moment(chat.updatedAt).fromNow()}
+                  {moment(chat.updatedAt, moment.ISO_8601).fromNow()} {/* ✅ fix moment warning */}
                 </span>
               </div>
 
