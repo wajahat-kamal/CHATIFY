@@ -2,17 +2,15 @@ import React, { useEffect } from "react";
 import { User } from "lucide-react";
 import chatbot from "../assets/chatbot.avif";
 import moment from "moment";
-import markdown from "react-markdown"
+import markdown from "react-markdown";
 import Prism from "prismjs";
 
 function Message({ message }) {
   const { role, content, timestamp, isImage } = message;
 
-useEffect(() => {
-
-  Prism.highlightAll();
-}, [message.content]); 
-
+  useEffect(() => {
+    Prism.highlightAll();
+  }, [message.content]);
 
   return (
     <div>
@@ -21,7 +19,8 @@ useEffect(() => {
         <div className="flex items-start justify-end my-4 gap-2">
           <div
             className="flex flex-col gap-2 p-3 px-4 bg-slate-50 dark:bg-[#57317C]/30 
-                       border border-[#80609F]/30 rounded-lg max-w-2xl shadow-sm"
+                       border border-[#80609F]/30 rounded-lg shadow-sm
+                       max-w-[85%] sm:max-w-lg md:max-w-xl lg:max-w-2xl"
           >
             <p className="text-sm dark:text-primary">{content}</p>
             <span className="text-xs text-gray-400 dark:text-[#B1A6C0]">
@@ -44,9 +43,10 @@ useEffect(() => {
             />
           </div>
           <div
-            className="flex flex-col gap-2 p-3 px-4 max-w-xl 
+            className="flex flex-col gap-2 p-3 px-4 
                        bg-primary/20 dark:bg-[#57317C]/30 
-                       border border-[#80609F]/30 rounded-lg shadow-sm"
+                       border border-[#80609F]/30 rounded-lg shadow-sm
+                       max-w-[85%] sm:max-w-lg md:max-w-xl lg:max-w-2xl"
           >
             {isImage ? (
               <img
@@ -55,7 +55,9 @@ useEffect(() => {
                 alt="Bot sent"
               />
             ) : (
-              <p className="text-sm dark:text-primary reset-tw"><markdown>{content}</markdown></p>
+              <p className="text-sm dark:text-primary reset-tw">
+                <markdown>{content}</markdown>
+              </p>
             )}
 
             <span className="text-xs text-gray-400 dark:text-[#B1A6C0] self-end">
