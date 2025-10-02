@@ -1,6 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Loading() {
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      Navigate("/")
+    }, 8000);
+    return () => clearTimeout(timeout)
+  }, [])
+  
+
   return (
     <div className="flex flex-col items-center justify-center h-screen w-screen bg-gradient-to-b from-[#531B81] to-[#29184B] text-white">
       {/* Spinner */}
