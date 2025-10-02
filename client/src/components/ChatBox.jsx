@@ -58,13 +58,12 @@ function ChatBox() {
       >
         {/* Mode Selector */}
         <select
-          className="text-sm px-3 py-1.5 rounded-full 
-             text-gray-600 dark:text-gray-200 cursor-pointer"
+          className="text-sm pr-2 pl-3 outline-none cursor-pointer"
         >
-          <option className="text-gray-700 text-sm" value="text">
+          <option className="dark:bg-purple-900" value="text">
             Text
           </option>
-          <option className="text-gray-700 text-sm" value="image">
+          <option className="dark:bg-purple-900" value="image">
             Image
           </option>
         </select>
@@ -72,7 +71,7 @@ function ChatBox() {
         {/* Input */}
         <input
           placeholder="Type your prompt here..."
-          className="flex-1 w-full text-sm px-2 py-1 bg-transparent 
+          className="flex-1 w-full text-sm px-2 pl-0 py-1 bg-transparent 
           placeholder:text-gray-400 dark:placeholder:text-gray-300 
           outline-none"
           required
