@@ -47,7 +47,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
       </button>
 
       {/* Search input */}
-      <div className="relative mt-6">
+      <div className="relative mt-4">
         <Search
           className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500"
           size={16}
@@ -67,7 +67,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
 
       {/* Recent Chats */}
       {chats.length > 0 && (
-        <p className="mt-6 mb-2 text-xs uppercase tracking-wide text-gray-500 dark:text-[#B1A6C0]">
+        <p className="mt-4 mb-2 text-xs uppercase tracking-wide text-gray-500 dark:text-[#B1A6C0]">
           Recent Chats
         </p>
       )}

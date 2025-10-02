@@ -35,10 +35,17 @@ function ChatBox() {
           </div>
         )}
 
-{messages.map((message, index) => (
-   <Message key={index} message={message}/>
-))}
+        {messages.map((message, index) => (
+          <Message key={index} message={message} />
+        ))}
 
+        {loading && (
+          <div className="loader flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full bg-gray-500 dark:bg-white animate-bounce [animation-delay:-0.s]"></div>
+            <div className="w-2 h-2 rounded-full bg-gray-500 dark:bg-white animate-bounce [animation-delay:-0.4s]"></div>
+            <div className="w-2 h-2 rounded-full bg-gray-500 dark:bg-white animate-bounce"></div>
+          </div>
+        )}
       </div>
 
       {/* chat input */}
