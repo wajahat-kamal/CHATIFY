@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAppContext } from "../context/AppContext";
 import chatbot from "../assets/chatbot.avif";
 import Message from "./Message";
+import { Send, SendHorizonal } from "lucide-react";
 
 function ChatBox() {
   const { selectedChat, theme } = useAppContext();
@@ -49,7 +50,40 @@ function ChatBox() {
       </div>
 
       {/* chat input */}
-      <form></form>
+      <form
+        className="bg-primary/10 dark:bg-[#583C79]/30 border border-primary/40 dark:border-[#80609F]/30 
+  rounded-full w-full max-w-2xl p-2.5 pl-4 mx-auto flex items-center gap-3 shadow-sm backdrop-blur"
+      >
+        {/* Mode Selector */}
+        <select
+          className="text-sm px-3 py-1 rounded-full bg-white/70 dark:bg-purple-900/60 
+    border border-gray-300 dark:border-[#6d4a96]/40 
+    outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+        >
+          <option value="text">Text</option>
+          <option value="image">Image</option>
+        </select>
+
+        {/* Input */}
+        <input
+          placeholder="Type your prompt here..."
+          className="flex-1 w-full text-sm px-2 py-1 bg-transparent 
+    placeholder:text-gray-400 dark:placeholder:text-gray-300 
+    outline-none focus:ring-0"
+          required
+          type="text"
+        />
+
+        {/* Send Button */}
+        <button
+          type="submit"
+          className="w-9 h-9 flex items-center justify-center rounded-full 
+    bg-gradient-to-r from-purple-500 to-indigo-600 text-white 
+    hover:scale-110 transition-transform shadow-md"
+        >
+         <SendHorizonal size={20}/>
+        </button>
+      </form>
     </div>
   );
 }
