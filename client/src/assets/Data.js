@@ -161,3 +161,43 @@ export const imagesPublishedData = [
     userName: "Creative AI",
   },
 ];
+
+export const dummyPlans = [
+  {
+    _id: "1",
+    name: "Starter Pack",
+    price: 5,
+    credits: 50,
+    features: [
+      "50 AI credits",
+      "Basic support",
+      "50 image generations",
+      "1 week validity",
+    ],
+  },
+  {
+    _id: "2",
+    name: "Pro Pack",
+    price: 15,
+    credits: 200,
+    features: [
+      "200 AI credits",
+      "Priority support",
+      "200 image generations",
+      "1 month validity",
+    ],
+  },
+  {
+    _id: "3",
+    name: "Ultimate Pack",
+    price: 30,
+    credits: 500,
+    features: [
+      "500 AI credits",
+      "24/7 premium support",
+      "500 image generations",
+      "24/7 VIP support",
+      "3 months validity",
+    ],
+  },
+];
