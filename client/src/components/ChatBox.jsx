@@ -2,13 +2,21 @@ import React, { useEffect, useState } from "react";
 import { useAppContext } from "../context/AppContext";
 import chatbot from "../assets/chatbot.avif";
 import Message from "./Message";
-import { SendHorizonal } from "lucide-react";
+import { SendHorizonal, StopCircle } from "lucide-react";
 
 function ChatBox() {
   const { selectedChat } = useAppContext();
 
   const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  const [prompt, setPrompt] = useState("");
+  const [mode, setMode] = useState("text");
+  const [isPublish, setIsPublish] = useState(false);
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+  }
 
   useEffect(() => {
     if (selectedChat) {
@@ -58,6 +66,8 @@ function ChatBox() {
       >
         {/* Mode Selector */}
         <select
+          onChange={(e) => setMode(e.target.value)}
+          value={mode}
           className="text-sm pr-2 pl-3 outline-none cursor-pointer"
         >
           <option className="dark:bg-purple-900" value="text">
@@ -70,6 +80,8 @@ function ChatBox() {
 
         {/* Input */}
         <input
+          onChange={(e) => setPrompt(e.target.value)}
+          value={prompt}
           placeholder="Type your prompt here..."
           className="flex-1 w-full text-sm px-2 pl-0 py-1 bg-transparent 
           placeholder:text-gray-400 dark:placeholder:text-gray-300 
@@ -81,12 +93,14 @@ function ChatBox() {
         {/* Send Button */}
         <button
           type="submit"
+          disabled={loading}
           className="w-10 h-10 flex items-center justify-center rounded-full 
           bg-gradient-to-r from-purple-500 to-indigo-600 text-white 
           hover:scale-110 hover:shadow-lg hover:shadow-purple-500/40 
-          transition-all duration-200"
+          transition-all duration-200 cursor-pointer"
         >
-          <SendHorizonal size={20} />
+          {loading ? <StopCircle size={20}/> : <SendHorizonal size={20} />}
+          
         </button>
       </form>
     </div>
