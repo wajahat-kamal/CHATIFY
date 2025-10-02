@@ -5,8 +5,21 @@ import ChatBox from "./components/ChatBox";
 import Credits from "./pages/Credits";
 import Community from "./pages/Community";
 import menu from "./assets/menu.svg";
+
+import "prismjs"; 
+import "prismjs/components/prism-javascript";
+import "prismjs/components/prism-css";
+import "prismjs/components/prism-markup";  
+import "prismjs/plugins/line-numbers/prism-line-numbers.js";
+import "prismjs/plugins/line-numbers/prism-line-numbers.css";
+
+import "./assets/prism.css";       
+
+
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  
 
   return (
     <>

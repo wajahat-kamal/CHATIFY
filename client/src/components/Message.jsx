@@ -1,11 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { User } from "lucide-react";
 import chatbot from "../assets/chatbot.avif";
 import moment from "moment";
 import markdown from "react-markdown"
+import Prism from "prismjs";
 
 function Message({ message }) {
   const { role, content, timestamp, isImage } = message;
+
+useEffect(() => {
+
+  Prism.highlightAll();
+}, [message.content]); 
+
 
   return (
     <div>

@@ -6,6 +6,7 @@ export const dummyUser = {
   credits: 200,
 };
 
+// dummyChats.js
 export const dummyChats = [
   {
     _id: "1",
@@ -32,13 +33,6 @@ export const dummyChats = [
       {
         role: "bot",
         content: "That sounds awesome 🚀 Do you need any help with it?",
-        timestamp: "10:04 AM",
-        createdAt: new Date().toISOString(),
-      },
-      {
-        role: "bot",
-        content: 
-        "✅ Kya change kiya Har chat me multiple messages add kiye (forward-back style conversation). Zyada realistic content dala (React project, meeting reminder, JS libraries).Timestamps thode realistic banaye (Yesterday, 10:04 AM, 2 days ago).👉 Chahte ho mai isme moment ka use karke timestamp ko auto generate kar du (e.g., moment().subtract(2,.fromNow()) taa ke manual time likhne ki zarurat na ho? ",
         timestamp: "10:04 AM",
         createdAt: new Date().toISOString(),
       },
@@ -69,7 +63,8 @@ export const dummyChats = [
       },
       {
         role: "bot",
-        content: "Of course! I’ll prepare it tonight so we can review together.",
+        content:
+          "Of course! I’ll prepare it tonight so we can review together.",
         timestamp: "Yesterday 5:42 PM",
         createdAt: new Date().toISOString(),
       },
@@ -82,7 +77,8 @@ export const dummyChats = [
     messages: [
       {
         role: "user",
-        content: "Hey bot, suggest me some good JavaScript libraries for animations.",
+        content:
+          "Hey bot, suggest me some good JavaScript libraries for animations.",
         timestamp: "2 days ago",
         createdAt: new Date().toISOString(),
       },
@@ -102,5 +98,51 @@ export const dummyChats = [
     ],
     updatedAt: new Date().toISOString(),
   },
+  {
+    _id: "4",
+    name: "Diana",
+    messages: [
+      {
+        role: "user",
+        content: "Hi bot, can you give me ser basic code",
+        timestamp: "Today 9:15 AM",
+        createdAt: new Date().toISOString(),
+      },
+      {
+        role: "bot",
+        content: `// server.js
+  import express from "express";
+  
+  const app = express();
+  const PORT = 5000;
+  
+  // Middleware (for JSON body parsing)
+  app.use(express.json());
+  
+  // Routes
+  app.get("/", (req, res) => {
+    res.send("🚀 Express server is running!");
+  });
+  
+  // Example API route
+  app.get("/api/hello", (req, res) => {
+    res.json({ message: "Hello from Express API 👋" });
+  });
+  
+  // Start server
+  app.listen(PORT, () => {
+    console.log(\`✅ Server running at http://localhost:\${PORT}\`);
+  });`,
+        timestamp: "Today 9:16 AM",
+        createdAt: new Date().toISOString(),
+      },
+      {
+        role: "user",
+        content: "Perfect, I’ll check them out today. Thanks a lot 🙌",
+        timestamp: "Today 9:18 AM",
+        createdAt: new Date().toISOString(),
+      },
+    ],
+    updatedAt: new Date().toISOString(),
+  },
 ];
-
