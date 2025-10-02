@@ -52,14 +52,13 @@ function ChatBox() {
       {/* Chat input */}
       <form
         className="bg-white/70 dark:bg-[#2a1f3d]/50 border border-purple-300/30 dark:border-[#80609F]/30 
-        rounded-full w-full max-w-2xl p-2.5 pl-4 mx-auto mb-4 
+        rounded-full w-full max-w-2xl p-2.5 pl-4 mx-auto 
         flex items-center gap-3 shadow-md backdrop-blur-sm 
         focus-within:ring-2 focus-within:ring-purple-400 transition"
       >
         {/* Mode Selector */}
         <select
-          className="text-sm px-3 py-1 rounded-full bg-white/80 dark:bg-purple-900/60 
-          border border-gray-200 dark:border-[#6d4a96]/40 
+          className="text-sm px-2 py-1 rounded-full 
           outline-none focus:ring-2 focus:ring-purple-400 transition"
         >
           <option value="text">Text</option>
