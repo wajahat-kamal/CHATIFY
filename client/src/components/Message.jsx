@@ -44,7 +44,7 @@ useEffect(() => {
             />
           </div>
           <div
-            className="flex flex-col gap-2 p-3 px-4 max-w-2xl 
+            className="flex flex-col gap-2 p-3 px-4 max-w-xl 
                        bg-primary/20 dark:bg-[#57317C]/30 
                        border border-[#80609F]/30 rounded-lg shadow-sm"
           >

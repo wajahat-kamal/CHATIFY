@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useAppContext } from "../context/AppContext";
 import chatbot from "../assets/chatbot.avif";
 import Message from "./Message";
-import { Send, SendHorizonal } from "lucide-react";
+import { SendHorizonal } from "lucide-react";
 
 function ChatBox() {
-  const { selectedChat, theme } = useAppContext();
+  const { selectedChat } = useAppContext();
 
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -17,12 +17,12 @@ function ChatBox() {
   }, [selectedChat]);
 
   return (
-    <div className="flex-1 flex flex-col justify-between m-5 md:m-10 xl:mx-30 max-md:mt-14 2xl:pr-40">
+    <div className="flex-1 flex flex-col justify-between xl:mx-15 md:p-10 max-md:pt-14 p-5 2xl:pr-40 h-screen">
       {/* Messages */}
-      <div className="flex-1 mb-5 overflow-y-scroll">
+      <div className="flex-1 mb-5 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-400/60 scrollbar-track-transparent">
         {messages.length === 0 && (
-          <div class="h-full flex flex-col items-center justify-center gap-2 text-primary">
-            <div className="flex items-center gap-2">
+          <div className="h-full flex flex-col items-center justify-center gap-3 text-primary">
+            <div className="flex items-center gap-3">
               <img
                 src={chatbot}
                 alt="Chatify Logo"
@@ -30,7 +30,7 @@ function ChatBox() {
               />
               <h1 className="text-4xl font-bold tracking-wide">CHATIFY</h1>
             </div>
-            <p class="mt-5 text-4xl sm:text-6xl text-center text-gray-400 dark:text-white">
+            <p className="mt-5 text-3xl sm:text-5xl text-center text-gray-400 dark:text-gray-200">
               Ask me anything.
             </p>
           </div>
@@ -41,10 +41,10 @@ function ChatBox() {
         ))}
 
         {loading && (
-          <div className="loader flex items-center gap-2">
+          <div className="loader flex items-center gap-2 mt-3">
             <div className="w-2 h-2 rounded-full bg-gray-500 dark:bg-white animate-bounce"></div>
-            <div className="w-2 h-2 rounded-full bg-gray-500 dark:bg-white animate-bounce"></div>
-            <div className="w-2 h-2 rounded-full bg-gray-500 dark:bg-white animate-bounce"></div>
+            <div className="w-2 h-2 rounded-full bg-gray-500 dark:bg-white animate-bounce [animation-delay:0.2s]"></div>
+            <div className="w-2 h-2 rounded-full bg-gray-500 dark:bg-white animate-bounce [animation-delay:0.4s]"></div>
           </div>
         )}
       </div>

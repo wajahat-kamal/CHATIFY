@@ -145,4 +145,9 @@ export const dummyChats = [
     ],
     updatedAt: new Date().toISOString(),
   },
+  {
+    _id: "4",
+    name: "Diana",
+    messages:[]
+  }
 ];
