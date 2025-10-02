@@ -8,14 +8,15 @@ function ChatBox() {
   const { selectedChat } = useAppContext();
 
   const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(true);
-
+  const [loading, setLoading] = useState(false); 
   const [prompt, setPrompt] = useState("");
   const [mode, setMode] = useState("text");
-  const [isPublish, setIsPublish] = useState(false);
+  const [isPublished, setIsPublished] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    if (!prompt.trim()) return;
+    
   };
 
   useEffect(() => {
@@ -49,13 +50,26 @@ function ChatBox() {
         ))}
 
         {loading && (
-          <div className="loader flex items-center gap-2 mt-3">
+          <div className="loader flex items-center gap-2 mt-3 ml-3">
             <div className="w-2 h-2 rounded-full bg-gray-500 dark:bg-white animate-bounce"></div>
             <div className="w-2 h-2 rounded-full bg-gray-500 dark:bg-white animate-bounce [animation-delay:0.2s]"></div>
             <div className="w-2 h-2 rounded-full bg-gray-500 dark:bg-white animate-bounce [animation-delay:0.4s]"></div>
           </div>
         )}
       </div>
+
+      {/* Image publish option */}
+      {mode === "image" && (
+        <label className="inline-flex items-center gap-2 mb-3 text-sm mx-auto cursor-pointer">
+          <p className="text-xs">Publish Generated Image to Community</p>
+          <input
+            type="checkbox"
+            checked={isPublished}
+            onChange={(e) => setIsPublished(e.target.checked)}
+            className="cursor-pointer accent-purple-600"
+          />
+        </label>
+      )}
 
       {/* Chat input */}
       <form
@@ -98,7 +112,7 @@ function ChatBox() {
           className="w-10 h-10 flex items-center justify-center rounded-full 
           bg-gradient-to-r from-purple-500 to-indigo-600 text-white 
           hover:scale-110 hover:shadow-lg hover:shadow-purple-500/40 
-          transition-all duration-200 cursor-pointer"
+          transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? <StopCircle size={20} /> : <SendHorizonal size={20} />}
         </button>
