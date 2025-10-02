@@ -49,16 +49,18 @@ function ChatBox() {
         )}
       </div>
 
-      {/* chat input */}
+      {/* Chat input */}
       <form
-        className="bg-primary/10 dark:bg-[#583C79]/30 border border-primary/40 dark:border-[#80609F]/30 
-  rounded-full w-full max-w-2xl p-2.5 pl-4 mx-auto flex items-center gap-3 shadow-sm backdrop-blur"
+        className="bg-white/70 dark:bg-[#2a1f3d]/50 border border-purple-300/30 dark:border-[#80609F]/30 
+        rounded-full w-full max-w-2xl p-2.5 pl-4 mx-auto mb-4 
+        flex items-center gap-3 shadow-md backdrop-blur-sm 
+        focus-within:ring-2 focus-within:ring-purple-400 transition"
       >
         {/* Mode Selector */}
         <select
-          className="text-sm px-3 py-1 rounded-full bg-white/70 dark:bg-purple-900/60 
-    border border-gray-300 dark:border-[#6d4a96]/40 
-    outline-none focus:ring-2 focus:ring-primary/50 transition-all"
+          className="text-sm px-3 py-1 rounded-full bg-white/80 dark:bg-purple-900/60 
+          border border-gray-200 dark:border-[#6d4a96]/40 
+          outline-none focus:ring-2 focus:ring-purple-400 transition"
         >
           <option value="text">Text</option>
           <option value="image">Image</option>
@@ -68,8 +70,8 @@ function ChatBox() {
         <input
           placeholder="Type your prompt here..."
           className="flex-1 w-full text-sm px-2 py-1 bg-transparent 
-    placeholder:text-gray-400 dark:placeholder:text-gray-300 
-    outline-none focus:ring-0"
+          placeholder:text-gray-400 dark:placeholder:text-gray-300 
+          outline-none"
           required
           type="text"
         />
@@ -77,11 +79,12 @@ function ChatBox() {
         {/* Send Button */}
         <button
           type="submit"
-          className="w-9 h-9 flex items-center justify-center rounded-full 
-    bg-gradient-to-r from-purple-500 to-indigo-600 text-white 
-    hover:scale-110 transition-transform shadow-md"
+          className="w-10 h-10 flex items-center justify-center rounded-full 
+          bg-gradient-to-r from-purple-500 to-indigo-600 text-white 
+          hover:scale-110 hover:shadow-lg hover:shadow-purple-500/40 
+          transition-all duration-200"
         >
-         <SendHorizonal size={20}/>
+          <SendHorizonal size={20} />
         </button>
       </form>
     </div>
