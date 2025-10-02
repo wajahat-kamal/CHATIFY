@@ -138,3 +138,26 @@ app.listen(PORT, () => {
     updatedAt: new Date().toISOString(),
   },
 ];
+
+const imagesPublishedData = [
+  {
+    imageUrl: "https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d",
+    title: "AI Artwork 1",
+    author: "GreatStack",
+  },
+  {
+    imageUrl: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f",
+    title: "AI Artwork 2",
+    author: "John Doe",
+  },
+  {
+    imageUrl: "https://images.unsplash.com/photo-1505238680356-667803448bb6",
+    title: "AI Artwork 3",
+    author: "Jane Smith",
+  },
+  {
+    imageUrl: "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0",
+    title: "AI Artwork 4",
+    author: "Creative AI",
+  },
+];
