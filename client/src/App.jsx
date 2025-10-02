@@ -1,25 +1,26 @@
 import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import ChatBox from "./components/ChatBox";
 import Credits from "./pages/Credits";
 import Community from "./pages/Community";
 import menu from "./assets/menu.svg";
 
-import "prismjs"; 
+import "prismjs";
 import "prismjs/components/prism-javascript";
 import "prismjs/components/prism-css";
-import "prismjs/components/prism-markup";  
+import "prismjs/components/prism-markup";
 import "prismjs/plugins/line-numbers/prism-line-numbers.js";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 
-import "./assets/prism.css";       
-
+import "./assets/prism.css";
+import Loading from "./pages/Loading";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const {pathname} = useLocation()
 
-  
+  if(pathname === "/loading") return <Loading/>
 
   return (
     <>
