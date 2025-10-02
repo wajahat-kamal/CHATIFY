@@ -35,6 +35,13 @@ export const dummyChats = [
         timestamp: "10:04 AM",
         createdAt: new Date().toISOString(),
       },
+      {
+        role: "bot",
+        content: 
+        "✅ Kya change kiya Har chat me multiple messages add kiye (forward-back style conversation). Zyada realistic content dala (React project, meeting reminder, JS libraries).Timestamps thode realistic banaye (Yesterday, 10:04 AM, 2 days ago).👉 Chahte ho mai isme moment ka use karke timestamp ko auto generate kar du (e.g., moment().subtract(2,.fromNow()) taa ke manual time likhne ki zarurat na ho? ",
+        timestamp: "10:04 AM",
+        createdAt: new Date().toISOString(),
+      },
     ],
     updatedAt: new Date().toISOString(),
   },
