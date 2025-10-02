@@ -210,7 +210,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
       {/* Close button for mobile */}
       <div
         onClick={() => setIsMenuOpen(false)}
-        className="absolute top-4 right-4 md:hidden block w-6 h-6 text-gray-700 dark:text-gray-200 cursor-pointer"
+        className="absolute top-6 right-4 md:hidden block w-6 h-6 text-gray-700 dark:text-gray-200 cursor-pointer"
       >
         <X />
       </div>
