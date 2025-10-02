@@ -45,7 +45,12 @@ function Message({ message }) {
                      bg-primary/20 dark:bg-[#57317C]/30 
                      border border-[#80609F]/30 rounded-lg shadow-sm"
           >
+            {message.isImage ? (
+              <img className="w-full mt-2 max-w-md rounded-md" src={content} alt="" />
+            ) : (
             <p className="text-sm dark:text-primary reset-tw">{content}</p>
+            )}
+
             <span className="text-xs text-gray-400 dark:text-[#B1A6C0] self-end">
               {moment(timestamp).fromNow()}
             </span>
