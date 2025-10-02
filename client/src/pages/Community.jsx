@@ -3,7 +3,7 @@ import { imagesPublishedData } from "../assets/Data";
 import Loading from "./Loading";
 
 function Community() {
-  const [images, setImages] = useState("");
+  const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchImages = async () => {
@@ -18,12 +18,12 @@ function Community() {
   if (loading) return <Loading />;
 
   return (
-    <div class="p-6 pt-12 xl:px-12 2xl:px-20 w-full mx-auto h-full overflow-y-scroll">
-      <h2 class="text-xl font-semibold mb-6 text-gray-800 dark:text-purple-100">
+    <div className="p-6 pt-12 xl:px-12 2xl:px-20 w-full mx-auto h-full overflow-y-scroll">
+      <h2 className="text-xl font-semibold mb-6 text-gray-800 dark:text-purple-100">
         Community Images
       </h2>
 
-      <div class="flex flex-wrap max-sm:justify-center gap-5">
+      <div className="flex flex-wrap max-sm:justify-center gap-5">
         {images.length > 0 ? (
           <div className="flex flex-wrap max-sm:justify-center gap-5">
             {images.map((image, index) => (
@@ -40,13 +40,15 @@ function Community() {
                   className="w-full h-40 md:h-50 2xl:h-62 object-cover group-hover:scale-105 transition-transform duration-300 ease-in-out"
                 />
                 <p className="absolute bottom-0 right-0 text-xs bg-black/50 backdrop-blur text-white px-4 py-1 rounded-tl-xl opacity-0 group-hover:opacity-100 transition duration-300">
-                 Credit by {image.userName}
+                  Credit by {image.userName}
                 </p>
               </a>
             ))}
           </div>
         ) : (
-          <p className="text-center text-gray-600 dark:text-purple-200 mt-10">No images available</p>
+          <p className="text-center text-gray-600 dark:text-purple-200 mt-10">
+            No images available
+          </p>
         )}
       </div>
     </div>
