@@ -2,6 +2,7 @@ import React from "react";
 import { User } from "lucide-react";
 import chatbot from "../assets/chatbot.avif";
 import moment from "moment";
+import markdown from "react-markdown"
 
 function Message({ message }) {
   const { role, content, timestamp, isImage } = message;
@@ -47,7 +48,7 @@ function Message({ message }) {
                 alt="Bot sent"
               />
             ) : (
-              <p className="text-sm dark:text-primary reset-tw">{content}</p>
+              <p className="text-sm dark:text-primary reset-tw"><markdown>{content}</markdown></p>
             )}
 
             <span className="text-xs text-gray-400 dark:text-[#B1A6C0] self-end">
