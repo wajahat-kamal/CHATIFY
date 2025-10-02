@@ -13,7 +13,7 @@ function Loading() {
   }, [navigate]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen w-full bg-gradient-to-b from-[#531B81] to-[#29184B] text-white">
+    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-b from-[#531B81] to-[#29184B] text-white">
       {/* Spinner */}
       <div className="flex items-center justify-center">
         <div className="relative w-16 h-16">
