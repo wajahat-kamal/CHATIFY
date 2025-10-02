@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { User } from "lucide-react";
 import chatbot from "../assets/chatbot.avif";
 import moment from "moment";
-import markdown from "react-markdown";
+import ReactMarkdown from "react-markdown";
 import Prism from "prismjs";
 
 function Message({ message }) {
@@ -56,7 +56,7 @@ function Message({ message }) {
               />
             ) : (
               <p className="text-sm dark:text-primary reset-tw">
-                <markdown>{content}</markdown>
+                <ReactMarkdown>{message.content}</ReactMarkdown>
               </p>
             )}
 

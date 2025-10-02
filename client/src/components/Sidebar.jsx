@@ -83,7 +83,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
           )
           .map((chat, index) => (
             <div
-              key={chat._id || index} // ✅ fix: always unique key
+              key={chat._id || index}
               onClick={() => {
                 setSelectedChat(chat);
                 navigate("/");
