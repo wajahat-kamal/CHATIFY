@@ -15,6 +15,7 @@ import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 
 import "./assets/prism.css";
 import Loading from "./pages/Loading";
+import Login from "./pages/Login";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -41,6 +42,8 @@ function App() {
               <Route path="/" element={<ChatBox />} />
               <Route path="/credits" element={<Credits />} />
               <Route path="/community" element={<Community />} />
+              <Route path="/login" element={<Login />} />
+
             </Routes>
           </main>
         </div>

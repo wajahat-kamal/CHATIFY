@@ -1,64 +1,140 @@
 import { useState } from "react";
 
 export default function Login() {
+  const [state, setState] = useState("login"); 
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const [state, setState] = useState("login")
-  const [name, setName] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    console.log({ name, email, password, state });
+  };
 
   return (
- <div className="flex h-[700px] w-full">
-              <div className="w-full hidden md:inline-block">
-                  <img className="h-full" src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/login/leftSideImage.png" alt="leftSideImage" />
-              </div>
-          
-              <div className="w-full flex flex-col items-center justify-center">
-          
-                  <form className="md:w-96 w-80 flex flex-col items-center justify-center">
-                      <h2 className="text-4xl text-gray-900 font-medium">Sign in</h2>
-                      <p className="text-sm text-gray-500/90 mt-3">Welcome back! Please sign in to continue</p>
-          
-                      <button type="button" className="w-full mt-8 bg-gray-500/10 flex items-center justify-center h-12 rounded-full">
-                          <img src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/login/googleLogo.svg" alt="googleLogo" />
-                      </button>
-          
-                      <div className="flex items-center gap-4 w-full my-5">
-                          <div className="w-full h-px bg-gray-300/90"></div>
-                          <p className="w-full text-nowrap text-sm text-gray-500/90">or sign in with email</p>
-                          <div className="w-full h-px bg-gray-300/90"></div>
-                      </div>
-          
-                      <div className="flex items-center w-full bg-transparent border border-gray-300/60 h-12 rounded-full overflow-hidden pl-6 gap-2">
-                          <svg width="16" height="11" viewBox="0 0 16 11" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path fillRule="evenodd" clipRule="evenodd" d="M0 .55.571 0H15.43l.57.55v9.9l-.571.55H.57L0 10.45zm1.143 1.138V9.9h13.714V1.69l-6.503 4.8h-.697zM13.749 1.1H2.25L8 5.356z" fill="#6B7280"/>
-                          </svg>
-                          <input type="email" placeholder="Email id" className="bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full" required />                 
-                      </div>
-          
-                      <div className="flex items-center mt-6 w-full bg-transparent border border-gray-300/60 h-12 rounded-full overflow-hidden pl-6 gap-2">
-                          <svg width="13" height="17" viewBox="0 0 13 17" fill="none" xmlns="http://www.w3.org/2000/svg">
-                              <path d="M13 8.5c0-.938-.729-1.7-1.625-1.7h-.812V4.25C10.563 1.907 8.74 0 6.5 0S2.438 1.907 2.438 4.25V6.8h-.813C.729 6.8 0 7.562 0 8.5v6.8c0 .938.729 1.7 1.625 1.7h9.75c.896 0 1.625-.762 1.625-1.7zM4.063 4.25c0-1.406 1.093-2.55 2.437-2.55s2.438 1.144 2.438 2.55V6.8H4.061z" fill="#6B7280"/>
-                          </svg>
-                          <input type="password" placeholder="Password" className="bg-transparent text-gray-500/80 placeholder-gray-500/80 outline-none text-sm w-full h-full" required />
-                      </div>
-          
-                      <div className="w-full flex items-center justify-between mt-8 text-gray-500/80">
-                          <div className="flex items-center gap-2">
-                              <input className="h-5" type="checkbox" id="checkbox" />
-                              <label className="text-sm" htmlFor="checkbox">Remember me</label>
-                          </div>
-                          <a className="text-sm underline" href="#">Forgot password?</a>
-                      </div>
-          
-                      <button type="submit" className="mt-8 w-full h-11 rounded-full text-white bg-indigo-500 hover:opacity-90 transition-opacity">
-                          Login
-                      </button>
-                      <p className="text-gray-500/90 text-sm mt-4">Don’t have an account? <a className="text-indigo-400 hover:underline" href="#">Sign up</a></p>
-                  </form>
-              </div>
-          </div>
-  
+    <form
+      onSubmit={onSubmitHandler}
+      className="md:w-96 w-80 flex flex-col items-center justify-center bg-white dark:bg-gray-900 rounded-xl shadow-lg px-6 py-8"
+    >
+      {/* Title */}
+      <h2 className="text-3xl font-semibold text-gray-900 dark:text-white">
+        {state === "login" ? "Sign in" : "Create account"}
+      </h2>
+      <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+        {state === "login"
+          ? "Welcome back! Please sign in to continue"
+          : "Join us by creating your account"}
+      </p>
+
+      {/* Google login */}
+      <button
+        type="button"
+        className="w-full mt-6 bg-gray-100 dark:bg-gray-800 flex items-center justify-center h-12 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition"
+      >
+        <img
+          src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/login/googleLogo.svg"
+          alt="googleLogo"
+          className="h-5"
+        />
+      </button>
+
+      {/* Divider */}
+      <div className="flex items-center gap-3 w-full my-6">
+        <div className="flex-1 h-px bg-gray-300 dark:bg-gray-700"></div>
+        <p className="text-xs text-gray-500 dark:text-gray-400">
+          or continue with email
+        </p>
+        <div className="flex-1 h-px bg-gray-300 dark:bg-gray-700"></div>
+      </div>
+
+      {/* Name field (only signup) */}
+      {state === "signup" && (
+        <div className="w-full mb-4">
+          <input
+            type="text"
+            placeholder="Full name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full px-4 h-12 rounded-full border border-gray-300 dark:border-gray-700 bg-transparent text-gray-700 dark:text-gray-200 text-sm focus:ring-2 focus:ring-purple-500 outline-none"
+            required
+          />
+        </div>
+      )}
+
+      {/* Email field */}
+      <div className="w-full mb-4">
+        <input
+          type="email"
+          placeholder="Email address"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          className="w-full px-4 h-12 rounded-full border border-gray-300 dark:border-gray-700 bg-transparent text-gray-700 dark:text-gray-200 text-sm focus:ring-2 focus:ring-purple-500 outline-none"
+          required
+        />
+      </div>
+
+      {/* Password field */}
+      <div className="w-full">
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          className="w-full px-4 h-12 rounded-full border border-gray-300 dark:border-gray-700 bg-transparent text-gray-700 dark:text-gray-200 text-sm focus:ring-2 focus:ring-purple-500 outline-none"
+          required
+        />
+      </div>
+
+      {/* Extra options (only login) */}
+      {state === "login" && (
+        <div className="w-full flex items-center justify-between mt-4 text-gray-500 dark:text-gray-400">
+          <label className="flex items-center gap-2 text-sm">
+            <input
+              className="h-4 w-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+              type="checkbox"
+            />
+            Remember me
+          </label>
+          <a className="text-sm underline hover:text-purple-600" href="#">
+            Forgot password?
+          </a>
+        </div>
+      )}
+
+      {/* Submit */}
+      <button
+        type="submit"
+        className="mt-6 w-full h-12 rounded-full text-white font-medium bg-purple-600 hover:bg-purple-700 active:bg-purple-800 transition"
+      >
+        {state === "login" ? "Login" : "Sign up"}
+      </button>
+
+      {/* Switch state */}
+      <p className="text-gray-500 dark:text-gray-400 text-sm mt-4">
+        {state === "login" ? (
+          <>
+            Don’t have an account?{" "}
+            <button
+              type="button"
+              onClick={() => setState("signup")}
+              className="text-purple-600 hover:underline"
+            >
+              Sign up
+            </button>
+          </>
+        ) : (
+          <>
+            Already have an account?{" "}
+            <button
+              type="button"
+              onClick={() => setState("login")}
+              className="text-purple-600 hover:underline"
+            >
+              Login
+            </button>
+          </>
+        )}
+      </p>
+    </form>
   );
 }
