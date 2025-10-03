@@ -16,12 +16,15 @@ import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 import "./assets/prism.css";
 import Loading from "./pages/Loading";
 import Login from "./pages/Login";
+import { useAppContext } from "./context/AppContext";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const {pathname} = useLocation()
+  const { pathname } = useLocation();
 
-  if(pathname === "/loading") return <Loading/>
+  const { user } = useAppContext();
+
+  if (pathname === "/loading") return <Loading />;
 
   return (
     <>
@@ -34,20 +37,22 @@ function App() {
         />
       )}
 
-      <div className="dark:bg-gradient-to-b from-[#242124] to-black dark:text-white min-h-screen">
-        <div className="flex w-screen h-screen">
-          <Sidebar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
-          <main className="flex-1 overflow-y-auto">
-            <Routes>
-              <Route path="/" element={<ChatBox />} />
-              <Route path="/credits" element={<Credits />} />
-              <Route path="/community" element={<Community />} />
-              <Route path="/login" element={<Login />} />
-
-            </Routes>
-          </main>
+      {user ? (
+        <div className="dark:bg-gradient-to-b from-[#242124] to-black dark:text-white min-h-screen">
+          <div className="flex w-screen h-screen">
+            <Sidebar isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+            <main className="flex-1 overflow-y-auto">
+              <Routes>
+                <Route path="/" element={<ChatBox />} />
+                <Route path="/credits" element={<Credits />} />
+                <Route path="/community" element={<Community />} />
+              </Routes>
+            </main>
+          </div>
         </div>
-      </div>
+      ) : (
+        <Login />
+      )}
     </>
   );
 }

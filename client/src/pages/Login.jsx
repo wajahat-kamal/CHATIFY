@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function Login() {
-  const [state, setState] = useState("login"); 
+  const [state, setState] = useState("login");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -14,73 +14,63 @@ export default function Login() {
   return (
     <form
       onSubmit={onSubmitHandler}
-      className="md:w-96 w-80 flex flex-col items-center justify-center bg-white dark:bg-gray-900 rounded-xl shadow-lg px-6 py-8"
+      className="md:w-96 w-80 flex flex-col items-center justify-center 
+                 bg-white dark:bg-gray-900 rounded-2xl shadow-xl px-7 py-10 
+                 transition-all duration-300 hover:shadow-2xl"
     >
       {/* Title */}
-      <h2 className="text-3xl font-semibold text-gray-900 dark:text-white">
-        {state === "login" ? "Sign in" : "Create account"}
+      <h2 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">
+        {state === "login" ? "Welcome Back 👋" : "Create Account 🚀"}
       </h2>
-      <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">
+      <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 text-center">
         {state === "login"
-          ? "Welcome back! Please sign in to continue"
-          : "Join us by creating your account"}
+          ? "Please sign in to continue your journey"
+          : "Join us today and explore endless possibilities"}
       </p>
-
-      {/* Google login */}
-      <button
-        type="button"
-        className="w-full mt-6 bg-gray-100 dark:bg-gray-800 flex items-center justify-center h-12 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition"
-      >
-        <img
-          src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/login/googleLogo.svg"
-          alt="googleLogo"
-          className="h-5"
-        />
-      </button>
-
-      {/* Divider */}
-      <div className="flex items-center gap-3 w-full my-6">
-        <div className="flex-1 h-px bg-gray-300 dark:bg-gray-700"></div>
-        <p className="text-xs text-gray-500 dark:text-gray-400">
-          or continue with email
-        </p>
-        <div className="flex-1 h-px bg-gray-300 dark:bg-gray-700"></div>
-      </div>
 
       {/* Name field (only signup) */}
       {state === "signup" && (
-        <div className="w-full mb-4">
+        <div className="w-full mt-6">
           <input
             type="text"
             placeholder="Full name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full px-4 h-12 rounded-full border border-gray-300 dark:border-gray-700 bg-transparent text-gray-700 dark:text-gray-200 text-sm focus:ring-2 focus:ring-purple-500 outline-none"
+            className="w-full px-4 h-12 rounded-lg border border-gray-300 dark:border-gray-700 
+                       bg-transparent text-gray-700 dark:text-gray-200 text-sm 
+                       focus:ring-2 focus:ring-purple-500 outline-none 
+                       transition-all duration-200"
             required
           />
         </div>
       )}
 
       {/* Email field */}
-      <div className="w-full mb-4">
+      <div className="w-full mt-6">
         <input
           type="email"
           placeholder="Email address"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full px-4 h-12 rounded-full border border-gray-300 dark:border-gray-700 bg-transparent text-gray-700 dark:text-gray-200 text-sm focus:ring-2 focus:ring-purple-500 outline-none"
+          className="w-full px-4 h-12 rounded-lg border border-gray-300 dark:border-gray-700 
+                     bg-transparent text-gray-700 dark:text-gray-200 text-sm 
+                     focus:ring-2 focus:ring-purple-500 outline-none 
+                     transition-all duration-200"
           required
         />
       </div>
 
       {/* Password field */}
-      <div className="w-full">
+      <div className="w-full mt-4">
         <input
           type="password"
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="w-full px-4 h-12 rounded-full border border-gray-300 dark:border-gray-700 bg-transparent text-gray-700 dark:text-gray-200 text-sm focus:ring-2 focus:ring-purple-500 outline-none"
+          className="w-full px-4 h-12 rounded-lg border border-gray-300 dark:border-gray-700 
+                     bg-transparent text-gray-700 dark:text-gray-200 text-sm 
+                     focus:ring-2 focus:ring-purple-500 outline-none 
+                     transition-all duration-200"
           required
         />
       </div>
@@ -88,14 +78,17 @@ export default function Login() {
       {/* Extra options (only login) */}
       {state === "login" && (
         <div className="w-full flex items-center justify-between mt-4 text-gray-500 dark:text-gray-400">
-          <label className="flex items-center gap-2 text-sm">
+          <label className="flex items-center gap-2 text-sm cursor-pointer">
             <input
               className="h-4 w-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
               type="checkbox"
             />
             Remember me
           </label>
-          <a className="text-sm underline hover:text-purple-600" href="#">
+          <a
+            className="text-sm font-medium text-purple-600 hover:text-purple-700 hover:underline transition"
+            href="#"
+          >
             Forgot password?
           </a>
         </div>
@@ -104,20 +97,23 @@ export default function Login() {
       {/* Submit */}
       <button
         type="submit"
-        className="mt-6 w-full h-12 rounded-full text-white font-medium bg-purple-600 hover:bg-purple-700 active:bg-purple-800 transition"
+        className="mt-8 w-full h-12 rounded-lg text-white font-medium 
+                   bg-gradient-to-r from-purple-600 to-purple-700 
+                   hover:from-purple-700 hover:to-purple-800 
+                   active:scale-95 transition-all duration-200 shadow-md"
       >
         {state === "login" ? "Login" : "Sign up"}
       </button>
 
       {/* Switch state */}
-      <p className="text-gray-500 dark:text-gray-400 text-sm mt-4">
+      <p className="text-gray-500 dark:text-gray-400 text-sm mt-6">
         {state === "login" ? (
           <>
             Don’t have an account?{" "}
             <button
               type="button"
               onClick={() => setState("signup")}
-              className="text-purple-600 hover:underline"
+              className="text-purple-600 font-medium hover:underline"
             >
               Sign up
             </button>
@@ -128,7 +124,7 @@ export default function Login() {
             <button
               type="button"
               onClick={() => setState("login")}
-              className="text-purple-600 hover:underline"
+              className="text-purple-600 font-medium hover:underline"
             >
               Login
             </button>
