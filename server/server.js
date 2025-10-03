@@ -2,7 +2,6 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
-import chatbotRouter from "./routes/chatbot.routes.js";
 
 dotenv.config();
 
@@ -29,7 +28,6 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send("API Working!");
 });
-app.use("/bot/v1", chatbotRouter);
 
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
