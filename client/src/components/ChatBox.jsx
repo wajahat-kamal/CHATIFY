@@ -8,7 +8,7 @@ function ChatBox() {
   const { selectedChat } = useAppContext();
 
   const [messages, setMessages] = useState([]);
-  const [loading, setLoading] = useState(false); 
+  const [loading, setLoading] = useState(false);
   const [prompt, setPrompt] = useState("");
   const [mode, setMode] = useState("text");
   const [isPublished, setIsPublished] = useState(false);
@@ -16,7 +16,6 @@ function ChatBox() {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (!prompt.trim()) return;
-    
   };
 
   useEffect(() => {
@@ -110,8 +109,7 @@ function ChatBox() {
           type="submit"
           disabled={loading}
           className="w-10 h-10 flex items-center justify-center rounded-full 
-          bg-gradient-to-r from-purple-500 to-indigo-600 text-white 
-          hover:scale-110 hover:shadow-lg hover:shadow-purple-500/40 
+          bg-gradient-to-r from-purple-500 to-indigo-600 text-white  hover:shadow-lg hover:shadow-purple-500/40 
           transition-all duration-200 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {loading ? <StopCircle size={20} /> : <SendHorizonal size={20} />}
