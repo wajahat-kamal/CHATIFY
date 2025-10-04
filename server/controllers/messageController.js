@@ -7,6 +7,15 @@ import imagekit from "../config/imagekit.js";
 export const textMessageController = async (req, res) => {
   try {
     const userId = req.user._id;
+
+    // Credit check
+    if (req.user.credits < 2) {
+      return res.status(400).json({
+        success: false,
+        message: "You don't have enough credits to use this feature.",
+      });
+    }
+
     const { chatId, prompt } = req.body;
 
     const chat = await Chat.findOne({ _id: chatId, userId });
@@ -17,7 +26,7 @@ export const textMessageController = async (req, res) => {
       });
     }
 
-    // Push user message
+    // Add user's message to chat
     chat.messages.push({
       role: "user",
       isImage: false,
@@ -25,35 +34,37 @@ export const textMessageController = async (req, res) => {
       content: prompt,
     });
 
-    // Generate text reply from OpenAI (Gemini)
+    // Generate AI response (Gemini model)
     const completion = await openai.chat.completions.create({
       model: "gemini-2.0-flash",
-      messages: [
-        { role: "assistant", content: "You are a helpful assistant." },
-        { role: "user", content: prompt },
-      ],
+      messages: [{ role: "user", content: prompt }],
     });
+
+    const aiMessage =
+      completion.choices?.[0]?.message?.content ||
+      "I'm not sure how to respond.";
 
     const reply = {
       role: "assistant",
-      content: completion.choices[0].message.content,
+      content: aiMessage,
       isImage: false,
       timestamp: Date.now(),
     };
 
-    // Send response to frontend
+    // Send AI response to client immediately
     res.status(200).json({
       success: true,
       reply,
     });
 
-    // Save to DB and update user credits
+    // Save both messages in DB
     chat.messages.push(reply);
     await chat.save();
 
+    // Deduct one credit from user
     await User.updateOne({ _id: userId }, { $inc: { credits: -1 } });
   } catch (error) {
-    console.error("❌ Error in textMessageController:", error.message);
+    console.error("❌ Error in textMessageController:", error);
     return res.status(500).json({
       success: false,
       message: "Server error, please try again later.",
@@ -64,7 +75,7 @@ export const textMessageController = async (req, res) => {
 export const imageMessageController = async (req, res) => {
   try {
     const userId = req.user._id;
-
+    const { prompt, chatId, isPublished } = req.body;
     // Credit check
     if (req.user.credits < 2) {
       return res.status(400).json({
@@ -72,8 +83,6 @@ export const imageMessageController = async (req, res) => {
         message: "You don't have enough credits to use this feature.",
       });
     }
-
-    const { prompt, chatId, isPublished } = req.body;
 
     const chat = await Chat.findOne({ _id: chatId, userId });
     if (!chat) {
@@ -83,7 +92,7 @@ export const imageMessageController = async (req, res) => {
       });
     }
 
-    // Push user message
+    // Add user message to chat
     chat.messages.push({
       role: "user",
       isImage: false,
@@ -91,7 +100,7 @@ export const imageMessageController = async (req, res) => {
       content: prompt,
     });
 
-    // Image generation via ImageKit endpoint
+    // Generate image via ImageKit transformation URL
     const encodedPrompt = encodeURIComponent(prompt);
     const generateImageUrl = `${
       process.env.IMAGEKIT_URL_ENDPOINT
@@ -121,18 +130,18 @@ export const imageMessageController = async (req, res) => {
       isPublished: !!isPublished,
     };
 
-    // Send response to frontend
+    // Send image reply to frontend
     res.status(200).json({
       success: true,
       reply,
     });
 
-    // Save to DB and update credits
+    // Save AI message and deduct credits
     chat.messages.push(reply);
     await chat.save();
     await User.updateOne({ _id: userId }, { $inc: { credits: -2 } });
   } catch (error) {
-    console.error("❌ Error in imageMessageController:", error.message);
+    console.error("❌ Error in imageMessageController:", error);
     return res.status(500).json({
       success: false,
       message: "Server error, please try again later.",
