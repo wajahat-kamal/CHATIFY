@@ -64,6 +64,16 @@ export const imageMessageController = async (req, res) => {
                 message: "You don't have enough credits to use this feature"
             })
         }
+
+        const {promp, chatId, isPublished} = req.body;
+        const chat = await Chat.findOne({userId, _id: chatId})
+
+        chat.messages.push({
+            role: "user",
+            isImage: false,
+            timestamp: Date.now(),
+            content: prompt,
+          });
     } catch (error) {
         
     }
