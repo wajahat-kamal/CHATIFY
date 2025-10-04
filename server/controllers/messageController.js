@@ -1,6 +1,6 @@
 import Chat from "../models/chat.model.js";
 import User from "../models/user.model.js";
-import OpenAI from "openai";
+import openai from "../config/openai.js";
 
 export const textMessageController = async (req, res) => {
   try {
@@ -23,7 +23,7 @@ export const textMessageController = async (req, res) => {
     });
 
     const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: "gemini-2.0-flash",
       messages: [
         { role: "system", content: "You are a helpful assistant." },
         { role: "user", content: prompt },
