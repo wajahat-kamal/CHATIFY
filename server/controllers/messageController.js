@@ -3,6 +3,7 @@ import User from "../models/user.model.js";
 import openai from "../config/openai.js";
 import axios from "axios";
 import imagekit from "../config/imagekit.js";
+import "dotenv/config"
 
 export const textMessageController = async (req, res) => {
   try {
@@ -76,7 +77,14 @@ export const imageMessageController = async (req, res) => {
   try {
     const userId = req.user._id;
     const { prompt, chatId, isPublished } = req.body;
-    // Credit check
+
+    if (!prompt || !chatId) {
+      return res.status(400).json({
+        success: false,
+        message: "Prompt and chatId are required.",
+      });
+    }
+
     if (req.user.credits < 2) {
       return res.status(400).json({
         success: false,
@@ -92,7 +100,6 @@ export const imageMessageController = async (req, res) => {
       });
     }
 
-    // Add user message to chat
     chat.messages.push({
       role: "user",
       isImage: false,
@@ -100,26 +107,24 @@ export const imageMessageController = async (req, res) => {
       content: prompt,
     });
 
-    // Generate image via ImageKit transformation URL
     const encodedPrompt = encodeURIComponent(prompt);
-    const generateImageUrl = `${
-      process.env.IMAGEKIT_URL_ENDPOINT
-    }/ik-genimg-prompt-${encodedPrompt}/chatify/${Date.now()}.png?tr=w-800,h-800`;
+    const generateImageUrl = `${process.env.IMAGEKIT_URL_ENDPOINT}/ik-genimg-prompt-${encodedPrompt}/chatify/${Date.now()}.png?tr=w-800,h-800`;
 
     const aiImageResponse = await axios.get(generateImageUrl, {
       responseType: "arraybuffer",
     });
+    console.log("AI Image Response Length:", aiImageResponse.data.length);
+
 
     const base64Image = `data:image/png;base64,${Buffer.from(
       aiImageResponse.data,
       "binary"
     ).toString("base64")}`;
 
-    // Upload generated image to ImageKit
     const uploadResponse = await imagekit.upload({
       file: base64Image,
       fileName: `${Date.now()}.png`,
-      folder: "/chatify",
+      folder: "chatify",
     });
 
     const reply = {
@@ -130,16 +135,15 @@ export const imageMessageController = async (req, res) => {
       isPublished: !!isPublished,
     };
 
-    // Send image reply to frontend
-    res.status(200).json({
-      success: true,
-      reply,
-    });
+    res.status(200).json({ success: true, reply });
 
-    // Save AI message and deduct credits
-    chat.messages.push(reply);
-    await chat.save();
-    await User.updateOne({ _id: userId }, { $inc: { credits: -2 } });
+    // Background tasks
+    (async () => {
+      chat.messages.push(reply);
+      await chat.save();
+      await User.updateOne({ _id: userId }, { $inc: { credits: -2 } });
+    })();
+
   } catch (error) {
     console.error("❌ Error in imageMessageController:", error);
     return res.status(500).json({
@@ -148,3 +152,4 @@ export const imageMessageController = async (req, res) => {
     });
   }
 };
+
