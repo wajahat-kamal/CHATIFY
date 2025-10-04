@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
+import bcrypt from "bcryptjs";
 
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -29,14 +30,7 @@ export const registerUser = async (req, res) => {
 
     return res.status(201).json({
       success: true,
-      message: "User created successfully",
       token,
-      user: {
-        _id: user._id,
-        name: user.name,
-        email: user.email,
-        credits: user.credits,
-      },
     });
   } catch (error) {
     console.error("❌ Error in registerUser:", error.message);
@@ -46,3 +40,28 @@ export const registerUser = async (req, res) => {
     });
   }
 };
+
+
+export const loginUser = async (req, res) => {
+    const {email, password} = req.body;
+    try {
+        const user = await User.findOne({email})
+        if (user) {
+            const isMatch = await bcrypt.compare(password, user.password)
+
+            if (isMatch) {
+                const token = generateToken(user._id)
+                return res.status(201).json({
+                    success: true,
+                    token
+                })
+            }
+        }
+        return res.json({
+            success: false,
+            message: "Invalid email or password"
+        })
+    } catch (error) {
+        
+    }
+}
