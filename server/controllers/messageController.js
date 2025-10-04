@@ -66,7 +66,7 @@ export const imageMessageController = async (req, res) => {
       });
     }
 
-    const { promp, chatId, isPublished } = req.body;
+    const { prompt, chatId, isPublished } = req.body;
     const chat = await Chat.findOne({ userId, _id: chatId });
 
     chat.messages.push({
@@ -98,7 +98,22 @@ export const imageMessageController = async (req, res) => {
       isImage: true,
       isPublished
     }
+   
+    res.json({
+      success: true,
+      reply
+    })
+
+    await Chat.messages.pust(reply)
+    chat.save()
+    await User.updateOne({ _id: userId }, { $inc: { credits: -2 } });
 
 
-  } catch (error) {}
+  } catch (error) {
+    console.error("❌ Error in imageMessageController:", error.message);
+    return res.status(500).json({
+      success: false,
+      message: "Server error, please try again later.",
+    });
+  }
 };
