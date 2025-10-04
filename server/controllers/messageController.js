@@ -2,6 +2,7 @@ import Chat from "../models/chat.model.js";
 import User from "../models/user.model.js";
 import openai from "../config/openai.js";
 import axios from 'axios'
+import imagekit from "../config/imagekit.js";
 
 export const textMessageController = async (req, res) => {
   try {
@@ -26,7 +27,7 @@ export const textMessageController = async (req, res) => {
     const completion = await openai.chat.completions.create({
       model: "gemini-2.0-flash",
       messages: [
-        { role: "system", content: "You are a helpful assistant." },
+        { role: "assistant", content: "You are a helpful assistant." },
         { role: "user", content: prompt },
       ],
     });
@@ -81,5 +82,23 @@ export const imageMessageController = async (req, res) => {
     const generateImageUrl = `${process.env.IMAGEKIT_URL_ENDPOINT}/ik-genimg-prompt-${encodedPrompt}/chatify/${Date.now()}.png?tr=w-800,h-800`
 
     const aiImageResponse = await axios.get(generateImageUrl, {responseType: 'arraybuffer'})
+
+    const base64Image = `data:image/png;base64,${Buffer.from(aiImageResponse.data, 'binary').toString("base64")}`
+    
+    const uploadResponse = await imagekit.upload({
+       file: base64Image,
+       filename: `${Date.now()}.png`,
+       folder: 'chatify'
+    })
+
+    const reply = {
+      role: 'assistant',
+      content: uploadResponse.url,
+      timestamp: Date.now(),
+      isImage: true,
+      isPublished
+    }
+
+
   } catch (error) {}
 };
