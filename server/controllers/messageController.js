@@ -53,3 +53,18 @@ export const textMessageController = async (req, res) => {
     });
   }
 };
+
+
+export const imageMessageController = async (req, res) => {
+    try {
+        const userId = req.user._id;
+        if (req.user.credits < 2) {
+            return res.json({
+                success: false,
+                message: "You don't have enough credits to use this feature"
+            })
+        }
+    } catch (error) {
+        
+    }
+}
