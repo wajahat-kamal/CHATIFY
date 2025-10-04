@@ -9,7 +9,7 @@ export const textMessageController = async (req, res) => {
     const userId = req.user._id;
 
     // Credit check
-    if (req.user.credits < 2) {
+    if (req.user.credits < 1) {
       return res.status(400).json({
         success: false,
         message: "You don't have enough credits to use this feature.",
