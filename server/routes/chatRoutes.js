@@ -3,8 +3,8 @@ import {
   createChat,
   deleteChat,
   getChats,
-} from "../controllers/chatController";
-import { protect } from "../middlewares/auth";
+} from "../controllers/chatController.js";
+import { protect } from "../middlewares/auth.js";
 
 const chatRouter = express.Router();
 
