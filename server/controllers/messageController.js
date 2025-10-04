@@ -1,6 +1,7 @@
 import Chat from "../models/chat.model.js";
 import User from "../models/user.model.js";
 import openai from "../config/openai.js";
+import axios from 'axios'
 
 export const textMessageController = async (req, res) => {
   try {
@@ -54,27 +55,31 @@ export const textMessageController = async (req, res) => {
   }
 };
 
-
 export const imageMessageController = async (req, res) => {
-    try {
-        const userId = req.user._id;
-        if (req.user.credits < 2) {
-            return res.json({
-                success: false,
-                message: "You don't have enough credits to use this feature"
-            })
-        }
-
-        const {promp, chatId, isPublished} = req.body;
-        const chat = await Chat.findOne({userId, _id: chatId})
-
-        chat.messages.push({
-            role: "user",
-            isImage: false,
-            timestamp: Date.now(),
-            content: prompt,
-          });
-    } catch (error) {
-        
+  try {
+    const userId = req.user._id;
+    if (req.user.credits < 2) {
+      return res.json({
+        success: false,
+        message: "You don't have enough credits to use this feature",
+      });
     }
-}
+
+    const { promp, chatId, isPublished } = req.body;
+    const chat = await Chat.findOne({ userId, _id: chatId });
+
+    chat.messages.push({
+      role: "user",
+      isImage: false,
+      timestamp: Date.now(),
+      content: prompt,
+    });
+
+    // imagekit 
+    const encodedPrompt = encodeURIComponent(prompt)
+
+    const generateImageUrl = `${process.env.IMAGEKIT_URL_ENDPOINT}/ik-genimg-prompt-${encodedPrompt}/chatify/${Date.now()}.png?tr=w-800,h-800`
+
+    const aiImageResponse = await axios.get(generateImageUrl, {responseType: 'arraybuffer'})
+  } catch (error) {}
+};
