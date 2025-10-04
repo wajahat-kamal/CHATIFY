@@ -27,9 +27,19 @@ export const createChat = async (req, res) => {
 };
 
 export const getChats = async (req, res) => {
-    try {
-        
-    } catch (error) {
-        
-    }
-}
+  try {
+    const userId = req.user._id;
+
+    const chats = await Chat.find({ userId }).sort({ updatedAt: -1 });
+
+    return res.status(200).json({
+      success: true,
+      chats,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
