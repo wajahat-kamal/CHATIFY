@@ -1,4 +1,4 @@
-import User from "../models/user.model";
+import User from "../models/user.model.js";
 
 
 export const textMessageController = async (req, res) => {
@@ -8,6 +8,7 @@ export const textMessageController = async (req, res) => {
 
         const chat = await User.findOne({userId, _id: chatId})
         chat.messages.push({role: "User", isImage: false, timestamp: Date.now(), content: prompt})
+        
     } catch (error) {
         
     }
