@@ -5,6 +5,7 @@ import ChatBox from "./components/ChatBox";
 import Credits from "./pages/Credits";
 import Community from "./pages/Community";
 import menu from "./assets/menu.svg";
+import {Toaster} from "react-hot-toast"
 
 import "prismjs";
 import "prismjs/components/prism-javascript";
@@ -28,6 +29,7 @@ function App() {
 
   return (
     <>
+    <Toaster/>
       {!isMenuOpen && (
         <img
           onClick={() => setIsMenuOpen(true)}
