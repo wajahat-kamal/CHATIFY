@@ -1,8 +1,6 @@
 import Chat from "../models/chat.model.js";
 import User from "../models/user.model.js";
 import openai from "../config/openai.js";
-import axios from "axios";
-import imagekit from "../config/imagekit.js";
 import "dotenv/config";
 
 export const textMessageController = async (req, res) => {
@@ -73,80 +71,3 @@ export const textMessageController = async (req, res) => {
   }
 };
 
-export const imageMessageController = async (req, res) => { 
-  try {
-    const userId = req.user._id;
-    const { prompt, chatId, isPublished } = req.body;
-
-    if (!prompt || !chatId) {
-      return res.status(400).json({
-        success: false,
-        message: "Prompt and chatId are required.",
-      });
-    }
-
-    if (req.user.credits < 2) {
-      return res.status(400).json({
-        success: false,
-        message: "You don't have enough credits to use this feature.",
-      });
-    }
-
-    const chat = await Chat.findOne({ _id: chatId, userId });
-    if (!chat) {
-      return res.status(404).json({
-        success: false,
-        message: "Chat not found.",
-      });
-    }
-
-    chat.messages.push({
-      role: "user",
-      isImage: false,
-      timestamp: Date.now(),
-      content: prompt,
-    });
-
-    const encodedPrompt = encodeURIComponent(prompt);
-    const generateImageUrl = `${process.env.IMAGEKIT_URL_ENDPOINT}/ik-genimg-prompt-${encodedPrompt}/chatify/${Date.now()}.png?tr=w-800,h-800`;
-
-    const aiImageResponse = await axios.get(generateImageUrl, {
-      responseType: "arraybuffer",
-    });
-
-    const base64Image = `data:image/png;base64,${Buffer.from(
-      aiImageResponse.data,
-      "binary"
-    ).toString("base64")}`;
-
-    const uploadResponse = await imagekit.upload({
-      file: base64Image,
-      fileName: `${Date.now()}.png`,
-      folder: "chatify",
-    });
-
-    const reply = {
-      role: "assistant",
-      content: uploadResponse.url,
-      timestamp: Date.now(),
-      isImage: true,
-      isPublished,
-    };
-
-    res.status(200).json({ success: true, reply });
-
-    // Background tasks
-    (async () => {
-      chat.messages.push(reply);
-      await chat.save();
-      await User.updateOne({ _id: userId }, { $inc: { credits: -2 } });
-    })();
-
-  } catch (error) {
-    console.error("❌ Error in imageMessageController:", error);
-    return res.status(500).json({
-      success: false,
-      message: "Server error, please try again later.",
-    });
-  }
-};
