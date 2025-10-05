@@ -26,6 +26,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
     createNewChat,
     fetchUserChats,
     setToken,
+    token,
     setChats,
     axios,
   } = useAppContext();
@@ -56,7 +57,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
         toast.success(data.message);
       }
     } catch (error) {
-      toast.success(error.message);
+      toast.error(error.message);
     }
   };
 
@@ -81,6 +82,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
 
       {/* New chat button */}
       <button
+      onClick={createNewChat}
         className="mt-6 flex items-center justify-center gap-2 py-3 rounded-lg 
         bg-gradient-to-r from-[#A456F7] to-[#3D61F6] 
         text-white font-medium shadow-md hover:scale-[1.02] 
@@ -154,7 +156,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
               </div>
 
               {/* Delete button */}
-              <button className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-500 transition">
+              <button onClick={e => toast.promise(deleteChat(e, chat._id), {loading: 'Deleting...'})} className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-500 transition">
                 <Trash2 size={16} />
               </button>
             </div>
