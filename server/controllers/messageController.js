@@ -3,7 +3,7 @@ import User from "../models/user.model.js";
 import openai from "../config/openai.js";
 import axios from "axios";
 import imagekit from "../config/imagekit.js";
-import "dotenv/config"
+import "dotenv/config";
 
 export const textMessageController = async (req, res) => {
   try {
@@ -73,7 +73,7 @@ export const textMessageController = async (req, res) => {
   }
 };
 
-export const imageMessageController = async (req, res) => {
+export const imageMessageController = async (req, res) => { 
   try {
     const userId = req.user._id;
     const { prompt, chatId, isPublished } = req.body;
@@ -113,8 +113,6 @@ export const imageMessageController = async (req, res) => {
     const aiImageResponse = await axios.get(generateImageUrl, {
       responseType: "arraybuffer",
     });
-    console.log("AI Image Response Length:", aiImageResponse.data.length);
-
 
     const base64Image = `data:image/png;base64,${Buffer.from(
       aiImageResponse.data,
@@ -132,7 +130,7 @@ export const imageMessageController = async (req, res) => {
       content: uploadResponse.url,
       timestamp: Date.now(),
       isImage: true,
-      isPublished: !!isPublished,
+      isPublished,
     };
 
     res.status(200).json({ success: true, reply });
@@ -152,4 +150,3 @@ export const imageMessageController = async (req, res) => {
     });
   }
 };
-
