@@ -117,7 +117,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
         </p>
       )}
       <div
-        className="space-y-2 overflow-y-auto h-[40vh] pr-1 
+        className="space-y-2 overflow-y-auto h-[42vh] pr-1 
         scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-[#4B3B58] scrollbar-track-transparent"
       >
         {chats
@@ -136,7 +136,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
                 navigate("/");
                 setIsMenuOpen(false);
               }}
-              className="flex items-center justify-between py-2 px-3 rounded-lg 
+              className="flex items-center justify-between py-2.5 px-3 rounded-lg 
                 border border-gray-200 dark:border-[#80609F]/20 
                 bg-gray-50 dark:bg-[#1C1522] 
                 hover:bg-gray-100 dark:hover:bg-[#2A2130] 
@@ -151,7 +151,6 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
                 </p>
                 <span className="text-[11px] font-medium text-gray-500 dark:text-[#B1A6C0] mt-0.5 italic">
                   {moment(chat.updatedAt, moment.ISO_8601).fromNow()}{" "}
-                  {/* ✅ fix moment warning */}
                 </span>
               </div>
 
@@ -163,52 +162,11 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
           ))}
       </div>
 
-      {/* Community Images */}
-      <div
-        onClick={() => {
-          navigate("/community");
-          setIsMenuOpen(false);
-        }}
-        className="flex items-center gap-3 p-3 mt-4 rounded-lg border 
-          border-gray-300/50 dark:border-white/20 
-          bg-gray-50 dark:bg-transparent 
-          hover:scale-[1.02] transition-all duration-200 shadow-sm cursor-pointer"
-      >
-        <Images
-          size={18}
-          className="text-gray-600 dark:text-gray-300 group-hover:text-purple-500 transition"
-        />
-        <p className="text-sm font-medium text-gray-700 dark:text-gray-200">
-          Community Images
-        </p>
-      </div>
 
-      {/* Credits */}
-      <div
-        onClick={() => {
-          navigate("/credits");
-          setIsMenuOpen(false);
-        }}
-        className="flex items-center gap-3 p-3 mt-3 rounded-lg border 
-          border-gray-300/50 dark:border-white/20 
-          bg-gray-50 dark:bg-transparent 
-          hover:scale-[1.02] hover:shadow-md 
-          transition-all duration-200 cursor-pointer"
-      >
-        <Diamond size={20} className="text-purple-500" />
-        <div className="flex flex-col">
-          <p className="text-sm font-semibold text-gray-800 dark:text-gray-100">
-            Credits: {user?.credits ?? 0}
-          </p>
-          <p className="text-xs text-gray-500 dark:text-gray-400">
-            Purchase credits to use Chatify
-          </p>
-        </div>
-      </div>
 
       {/* Dark Mode Toggle */}
       <div
-        className="flex items-center justify-between p-3 mt-3 rounded-lg border 
+        className="flex items-center justify-between p-4 mt-4 rounded-lg border 
           border-gray-300/50 dark:border-white/20 
           bg-gray-50 dark:bg-transparent shadow-sm"
       >
@@ -238,7 +196,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
 
       {/* User Account */}
       <div
-        className="flex items-center justify-between gap-3 p-3 mt-3 rounded-lg border 
+        className="flex items-center justify-between gap-3 p-4 mt-4 rounded-lg border 
           border-gray-300/50 dark:border-white/20 
           bg-gray-50 dark:bg-transparent cursor-pointer group"
       >
