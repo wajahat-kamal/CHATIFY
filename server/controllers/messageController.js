@@ -7,14 +7,6 @@ export const textMessageController = async (req, res) => {
   try {
     const userId = req.user._id;
 
-    // Credit check
-    if (req.user.credits < 1) {
-      return res.status(400).json({
-        success: false,
-        message: "You don't have enough credits to use this feature.",
-      });
-    }
-
     const { chatId, prompt } = req.body;
 
     const chat = await Chat.findOne({ _id: chatId, userId });
@@ -28,7 +20,6 @@ export const textMessageController = async (req, res) => {
     // Add user's message to chat
     chat.messages.push({
       role: "user",
-      isImage: false,
       timestamp: Date.now(),
       content: prompt,
     });
@@ -46,7 +37,6 @@ export const textMessageController = async (req, res) => {
     const reply = {
       role: "assistant",
       content: aiMessage,
-      isImage: false,
       timestamp: Date.now(),
     };
 
@@ -60,8 +50,7 @@ export const textMessageController = async (req, res) => {
     chat.messages.push(reply);
     await chat.save();
 
-    // Deduct one credit from user
-    await User.updateOne({ _id: userId }, { $inc: { credits: -1 } });
+    // No credit deductions
   } catch (error) {
     console.error("❌ Error in textMessageController:", error);
     return res.status(500).json({

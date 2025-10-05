@@ -17,8 +17,6 @@ const chatSchema = new mongoose.Schema(
     },
     messages: [
       {
-        isImage: { type: Boolean, default: false },
-        isPublished: { type: Boolean, default: false },
         content: { type: String, required: true },
         role: { type: String, required: true },
         timestamp: { type: String, required: true },

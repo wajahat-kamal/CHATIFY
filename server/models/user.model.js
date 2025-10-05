@@ -15,10 +15,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  credits: {
-    type: Number,
-    default: 20,
-  },
 });
 
 // Hash password before saving

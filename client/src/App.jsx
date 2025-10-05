@@ -2,8 +2,6 @@ import React, { useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import ChatBox from "./components/ChatBox";
-import Credits from "./pages/Credits";
-import Community from "./pages/Community";
 import menu from "./assets/menu.svg";
 import {Toaster} from "react-hot-toast"
 
@@ -46,8 +44,6 @@ function App() {
             <main className="flex-1 overflow-y-auto">
               <Routes>
                 <Route path="/" element={<ChatBox />} />
-                <Route path="/credits" element={<Credits />} />
-                <Route path="/community" element={<Community />} />
               </Routes>
             </main>
           </div>

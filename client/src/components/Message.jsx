@@ -6,7 +6,7 @@ import ReactMarkdown from "react-markdown";
 import Prism from "prismjs";
 
 function Message({ message }) {
-  const { role, content, timestamp, isImage } = message;
+  const { role, content, timestamp } = message;
 
   useEffect(() => {
     Prism.highlightAll();
@@ -48,17 +48,9 @@ function Message({ message }) {
                        border border-[#80609F]/30 rounded-lg shadow-sm
                        max-w-[85%] sm:max-w-lg md:max-w-xl lg:max-w-2xl"
           >
-            {isImage ? (
-              <img
-                className="w-full mt-2 max-w-md rounded-md"
-                src={content}
-                alt="Bot sent"
-              />
-            ) : (
-              <p className="text-sm dark:text-primary reset-tw">
-                <ReactMarkdown>{message.content}</ReactMarkdown>
-              </p>
-            )}
+            <p className="text-sm dark:text-primary reset-tw">
+              <ReactMarkdown>{message.content}</ReactMarkdown>
+            </p>
 
             <span className="text-xs text-gray-400 dark:text-[#B1A6C0] self-end">
               {moment(timestamp).fromNow()}

@@ -26,7 +26,7 @@ function ChatBox() {
       // Add user's message instantly
       setMessages((prev) => [
         ...prev,
-        { role: "user", content: promptCopy, timestamp: Date.now(), isImage: false },
+        { role: "user", content: promptCopy, timestamp: Date.now() },
       ]);
 
       // ✅ FIX: Added proper Bearer token format
