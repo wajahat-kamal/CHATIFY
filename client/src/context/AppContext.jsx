@@ -37,9 +37,28 @@ const AppContextProvider = ({ children }) => {
     }
   };
 
-  const fetchUserChats = () => {
-    setChats(dummyChats);
-    setSelectedChat(dummyChats[0] || null);
+  const createNewChat = async () => {
+    try {
+      if(!user) return toast('Login to create a new chat')
+      navigate("/")
+      await axios.get("/api/chat/create", {headers : {Authorization: token}})
+      await fetchUserChats()
+    } catch (error) {
+      
+    }
+  }
+
+  const fetchUserChats = async () => {
+    try {
+      const {data} = await axios.get('/api/chat/get', {headers: {Authorization: token}})
+      if (data.success) {
+        setChats(chats)
+      } else (
+        toast.error(data.message)
+      )
+    } catch (error) {
+      toast.error(error.message)
+    }
   };
 
   useEffect(() => {
