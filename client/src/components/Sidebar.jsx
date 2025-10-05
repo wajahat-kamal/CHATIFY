@@ -3,8 +3,6 @@ import {
   Search,
   Plus,
   Trash2,
-  Images,
-  Diamond,
   Sun,
   User,
   LogOut,
@@ -33,31 +31,34 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
 
   const [search, setSearch] = useState("");
 
+  // ✅ logout fix: proper toast + clear user
   const logout = () => {
     localStorage.removeItem("token");
     setToken(null);
-    toast("Loggout successfully");
+    toast.success("Logged out successfully");
   };
 
-  const deleteChat = async (e, chatId) => {
+  // ✅ deleteChat fix: added Bearer header + proper toast.promise handling
+  const deleteChat = async (chatId) => {
+    const confirmDelete = window.confirm("Are you sure you want to delete this chat?");
+    if (!confirmDelete) return;
+
     try {
-      e.stopPropagation();
-      const confirm = window.confirm(
-        "Are you sure you want to delete this chat?"
-      );
-      if (!confirm) return;
       const { data } = await axios.post(
         "/api/chat/delete",
         { chatId },
-        { headers: { Authorization: token } }
+        { headers: { Authorization: `Bearer ${token}` } }
       );
+
       if (data.success) {
         setChats((prev) => prev.filter((chat) => chat._id !== chatId));
         await fetchUserChats();
-        toast.success(data.message);
+        toast.success(data.message || "Chat deleted");
+      } else {
+        toast.error(data.message || "Failed to delete chat");
       }
     } catch (error) {
-      toast.error(error.message);
+      toast.error(error.response?.data?.message || error.message);
     }
   };
 
@@ -72,17 +73,13 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
     >
       {/* Logo */}
       <div className="flex items-center gap-2">
-        <img
-          src={chatbot}
-          alt="Chatify Logo"
-          className="w-9 h-9 rounded-md shadow-md"
-        />
+        <img src={chatbot} alt="Chatify Logo" className="w-9 h-9 rounded-md shadow-md" />
         <h1 className="text-2xl font-bold tracking-wide">CHATIFY</h1>
       </div>
 
       {/* New chat button */}
       <button
-      onClick={createNewChat}
+        onClick={createNewChat}
         className="mt-6 flex items-center justify-center gap-2 py-3 rounded-lg 
         bg-gradient-to-r from-[#A456F7] to-[#3D61F6] 
         text-white font-medium shadow-md hover:scale-[1.02] 
@@ -103,10 +100,10 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
           type="text"
           placeholder="Search Conversation"
           className="w-full pl-9 pr-3 py-2.5 text-sm rounded-lg border 
-            border-gray-300 dark:border-white/20 
-            bg-gray-50 dark:bg-transparent 
-            focus:outline-none focus:ring-1 focus:ring-[#A456F7] 
-            placeholder:text-gray-400 dark:placeholder:text-gray-500"
+          border-gray-300 dark:border-white/20 
+          bg-gray-50 dark:bg-transparent 
+          focus:outline-none focus:ring-1 focus:ring-[#A456F7] 
+          placeholder:text-gray-400 dark:placeholder:text-gray-500"
         />
       </div>
 
@@ -116,6 +113,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
           Recent Chats
         </p>
       )}
+
       <div
         className="space-y-2 overflow-y-auto h-[42vh] pr-1 
         scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-[#4B3B58] scrollbar-track-transparent"
@@ -123,24 +121,22 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
         {chats
           .filter((chat) =>
             chat.messages.length > 0
-              ? chat.messages[0].content
-                  .toLowerCase()
-                  .includes(search.toLowerCase())
+              ? chat.messages[0].content.toLowerCase().includes(search.toLowerCase())
               : chat.name.toLowerCase().includes(search.toLowerCase())
           )
-          .map((chat, index) => (
+          .map((chat) => (
             <div
-              key={chat._id || index}
+              key={chat._id}
               onClick={() => {
                 setSelectedChat(chat);
                 navigate("/");
                 setIsMenuOpen(false);
               }}
               className="flex items-center justify-between py-2.5 px-3 rounded-lg 
-                border border-gray-200 dark:border-[#80609F]/20 
-                bg-gray-50 dark:bg-[#1C1522] 
-                hover:bg-gray-100 dark:hover:bg-[#2A2130] 
-                transition-all duration-200 shadow-sm group cursor-pointer"
+              border border-gray-200 dark:border-[#80609F]/20 
+              bg-gray-50 dark:bg-[#1C1522] 
+              hover:bg-gray-100 dark:hover:bg-[#2A2130] 
+              transition-all duration-200 shadow-sm group cursor-pointer"
             >
               {/* Chat info */}
               <div className="flex flex-col max-w-[70%]">
@@ -150,34 +146,37 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
                     : chat.name}
                 </p>
                 <span className="text-[11px] font-medium text-gray-500 dark:text-[#B1A6C0] mt-0.5 italic">
-                  {moment(chat.updatedAt, moment.ISO_8601).fromNow()}{" "}
+                  {moment(chat.updatedAt, moment.ISO_8601).fromNow()}
                 </span>
               </div>
 
               {/* Delete button */}
-              <button onClick={e => toast.promise(deleteChat(e, chat._id), {loading: 'Deleting...'})} className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-500 transition">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toast.promise(deleteChat(chat._id), {
+                    loading: "Deleting...",
+                    success: "Deleted!",
+                    error: "Failed to delete",
+                  });
+                }}
+                className="opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-500 transition"
+              >
                 <Trash2 size={16} />
               </button>
             </div>
           ))}
       </div>
 
-
-
       {/* Dark Mode Toggle */}
       <div
         className="flex items-center justify-between p-4 mt-4 rounded-lg border 
-          border-gray-300/50 dark:border-white/20 
-          bg-gray-50 dark:bg-transparent shadow-sm"
+        border-gray-300/50 dark:border-white/20 
+        bg-gray-50 dark:bg-transparent shadow-sm"
       >
         <div className="flex items-center gap-2">
-          <Sun
-            size={18}
-            className="text-gray-600 dark:text-gray-300 transition duration-200"
-          />
-          <p className="text-sm font-medium text-gray-700 dark:text-gray-200">
-            Dark Mode
-          </p>
+          <Sun size={18} className="text-gray-600 dark:text-gray-300 transition duration-200" />
+          <p className="text-sm font-medium text-gray-700 dark:text-gray-200">Dark Mode</p>
         </div>
         <label className="relative inline-flex items-center cursor-pointer">
           <input
@@ -189,7 +188,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
           <div className="w-10 h-5 bg-gray-300 peer-checked:bg-purple-500 rounded-full transition-colors"></div>
           <div
             className="absolute left-0.5 top-0.5 w-4 h-4 bg-white rounded-full border shadow-sm 
-              peer-checked:translate-x-5 transition-transform"
+            peer-checked:translate-x-5 transition-transform"
           ></div>
         </label>
       </div>
@@ -197,8 +196,8 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
       {/* User Account */}
       <div
         className="flex items-center justify-between gap-3 p-4 mt-4 rounded-lg border 
-          border-gray-300/50 dark:border-white/20 
-          bg-gray-50 dark:bg-transparent cursor-pointer group"
+        border-gray-300/50 dark:border-white/20 
+        bg-gray-50 dark:bg-transparent cursor-pointer group"
       >
         <div className="flex items-center gap-2">
           <div className="bg-gray-200 dark:bg-purple-600 rounded-full p-1.5">
