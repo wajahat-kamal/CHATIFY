@@ -5,7 +5,7 @@ import Message from "./Message";
 import { SendHorizonal, StopCircle } from "lucide-react";
 
 function ChatBox() {
-  const { selectedChat } = useAppContext();
+  const { selectedChat, theme, user, axios, token, setUser } = useAppContext();
 
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -15,7 +15,6 @@ function ChatBox() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (!prompt.trim()) return;
   };
 
   useEffect(() => {
@@ -30,13 +29,29 @@ function ChatBox() {
       <div className="flex-1 mb-5 overflow-y-auto scrollbar-thin scrollbar-thumb-purple-400/60 scrollbar-track-transparent">
         {messages.length === 0 && (
           <div className="h-full flex flex-col items-center justify-center gap-3 text-primary">
-            <div className="flex items-center gap-3">
-              <img
-                src={chatbot}
-                alt="Chatify Logo"
-                className="w-14 h-14 rounded-md shadow-md"
-              />
-              <h1 className="text-4xl font-bold tracking-wide">CHATIFY</h1>
+            <div className="flex items-center gap-3 group">
+              <div className="relative">
+                <img
+                  src={chatbot}
+                  alt="Chatify Logo"
+                  className="w-15 h-15 rounded-2xl shadow-lg border border-purple-400/40 
+                 dark:border-purple-500/40 transition-transform duration-300 
+                 group-hover:scale-105 group-hover:rotate-3"
+                />
+                <div
+                  className="absolute inset-0 rounded-2xl blur-md bg-gradient-to-tr 
+                    from-purple-500/20 to-blue-500/20 opacity-0 
+                    group-hover:opacity-100 transition-opacity duration-300"
+                ></div>
+              </div>
+
+              <h1
+                className="text-5xl font-extrabold tracking-wide bg-gradient-to-r 
+               from-purple-500 via-pink-500 to-blue-500 bg-clip-text text-transparent 
+               drop-shadow-sm select-none group-hover:scale-105 transition-transform duration-300"
+              >
+                CHATIFY
+              </h1>
             </div>
             <p className="mt-5 text-3xl sm:text-5xl text-center text-gray-400 dark:text-gray-200">
               Ask me anything.
@@ -86,9 +101,6 @@ function ChatBox() {
         >
           <option className="dark:bg-purple-900" value="text">
             Text
-          </option>
-          <option className="dark:bg-purple-900" value="image">
-            Image
           </option>
         </select>
 

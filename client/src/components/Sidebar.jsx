@@ -1,13 +1,5 @@
 import React, { useState } from "react";
-import {
-  Search,
-  Plus,
-  Trash2,
-  Sun,
-  User,
-  LogOut,
-  X,
-} from "lucide-react";
+import { Search, Plus, Trash2, Sun, User, LogOut, X } from "lucide-react";
 import { useAppContext } from "../context/AppContext";
 import chatbot from "../assets/chatbot.avif";
 import moment from "moment";
@@ -40,7 +32,9 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
 
   // ✅ deleteChat fix: added Bearer header + proper toast.promise handling
   const deleteChat = async (chatId) => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this chat?");
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this chat?"
+    );
     if (!confirmDelete) return;
 
     try {
@@ -71,10 +65,29 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
       fixed md:static z-40 top-0 left-0
       ${!isMenuOpen ? "-translate-x-full md:translate-x-0" : "translate-x-0"}`}
     >
-      {/* Logo */}
-      <div className="flex items-center gap-2">
-        <img src={chatbot} alt="Chatify Logo" className="w-9 h-9 rounded-md shadow-md" />
-        <h1 className="text-2xl font-bold tracking-wide">CHATIFY</h1>
+      <div className="flex items-center gap-3 group">
+        <div className="relative">
+          <img
+            src={chatbot}
+            alt="Chatify Logo"
+            className="w-10 h-10 rounded-2xl shadow-lg border border-purple-400/40 
+                 dark:border-purple-500/40 transition-transform duration-300 
+                 group-hover:scale-105 group-hover:rotate-3"
+          />
+          <div
+            className="absolute inset-0 rounded-2xl blur-md bg-gradient-to-tr 
+                    from-purple-500/20 to-blue-500/20 opacity-0 
+                    group-hover:opacity-100 transition-opacity duration-300"
+          ></div>
+        </div>
+
+        <h1
+          className="text-3xl font-extrabold tracking-wide bg-gradient-to-r 
+               from-purple-500 via-pink-500 to-blue-500 bg-clip-text text-transparent 
+               drop-shadow-sm select-none group-hover:scale-105 transition-transform duration-300"
+        >
+          CHATIFY
+        </h1>
       </div>
 
       {/* New chat button */}
@@ -121,7 +134,9 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
         {chats
           .filter((chat) =>
             chat.messages.length > 0
-              ? chat.messages[0].content.toLowerCase().includes(search.toLowerCase())
+              ? chat.messages[0].content
+                  .toLowerCase()
+                  .includes(search.toLowerCase())
               : chat.name.toLowerCase().includes(search.toLowerCase())
           )
           .map((chat) => (
@@ -175,8 +190,13 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
         bg-gray-50 dark:bg-transparent shadow-sm"
       >
         <div className="flex items-center gap-2">
-          <Sun size={18} className="text-gray-600 dark:text-gray-300 transition duration-200" />
-          <p className="text-sm font-medium text-gray-700 dark:text-gray-200">Dark Mode</p>
+          <Sun
+            size={18}
+            className="text-gray-600 dark:text-gray-300 transition duration-200"
+          />
+          <p className="text-sm font-medium text-gray-700 dark:text-gray-200">
+            Dark Mode
+          </p>
         </div>
         <label className="relative inline-flex items-center cursor-pointer">
           <input
