@@ -23,9 +23,9 @@ function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { pathname } = useLocation();
 
-  const { user } = useAppContext();
+  const { user, loadingUser } = useAppContext();
 
-  if (pathname === "/loading") return <Loading />;
+  if (pathname === "/loading" || loadingUser) return <Loading />;
 
   return (
     <>
