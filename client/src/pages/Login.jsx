@@ -8,22 +8,24 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [axios, setToken] = useAppContext()
+  const { axios, setToken, navigate } = useAppContext();
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
+    const url = state === "login" ? "/api/user/login" : "/api/user/register";
+
     try {
-      const url = state === 'login' ? '/api/user/login' : '/api/user/register'
-      const {data} = await  axios.post(url, {name, email,password})
+      const { data } = await axios.post(url, { name, email, password });
       if (data.success) {
-        setToken(data.token)
-        localStorage.setItem('token', data.token)
-        toast.success(data.message)
+        setToken(data.token);
+        localStorage.setItem("token", data.token);
+        toast.success(data.message);
+        navigate("/");
       } else {
-        toast.error(data.message)
+        toast.error(data.message);
       }
     } catch (error) {
-      toast.error(error .message)
+      toast.error(error.response?.data?.message || error.message);
     }
   };
 
@@ -35,7 +37,6 @@ export default function Login() {
                    bg-white dark:bg-gray-900 rounded-2xl shadow-xl px-7 py-10 
                    transition-all duration-300 hover:shadow-2xl"
       >
-        {/* Title */}
         <h2 className="text-3xl font-bold text-gray-900 dark:text-white tracking-tight">
           {state === "login" ? "Welcome Back" : "Create Account"}
         </h2>
@@ -45,7 +46,6 @@ export default function Login() {
             : "Join us today and explore endless possibilities"}
         </p>
 
-        {/* Name field (only signup) */}
         {state === "signup" && (
           <div className="w-full mt-6">
             <input
@@ -62,7 +62,6 @@ export default function Login() {
           </div>
         )}
 
-        {/* Email field */}
         <div className="w-full mt-6">
           <input
             type="email"
@@ -77,7 +76,6 @@ export default function Login() {
           />
         </div>
 
-        {/* Password field */}
         <div className="w-full mt-4">
           <input
             type="password"
@@ -92,7 +90,6 @@ export default function Login() {
           />
         </div>
 
-        {/* Submit */}
         <button
           type="submit"
           className="mt-8 w-full h-12 rounded-lg text-white font-medium 
@@ -103,7 +100,6 @@ export default function Login() {
           {state === "login" ? "Login" : "Sign up"}
         </button>
 
-        {/* Switch state */}
         <p className="text-gray-500 dark:text-gray-400 text-sm mt-6">
           {state === "login" ? (
             <>

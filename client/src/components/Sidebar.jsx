@@ -71,7 +71,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
           Recent Chats
         </p>
       )}
-      <div className="space-y-2 overflow-y-auto max-h-[40vh] pr-1 
+      <div className="space-y-2 overflow-y-auto h-[40vh] pr-1 
         scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-[#4B3B58] scrollbar-track-transparent">
         {chats
           .filter((chat) =>
