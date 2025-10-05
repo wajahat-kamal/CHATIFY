@@ -52,7 +52,13 @@ const AppContextProvider = ({ children }) => {
     try {
       const {data} = await axios.get('/api/chat/get', {headers: {Authorization: token}})
       if (data.success) {
-        setChats(chats)
+        setChats(data.chats)
+        if (data.chats.length === 0) {
+          await createNewChat();
+          return fetchUserChats()
+        } else {
+          setSelectedChat(data.chats[0])
+        }
       } else (
         toast.error(data.message)
       )
@@ -80,8 +86,13 @@ const AppContextProvider = ({ children }) => {
   }, [user]);
 
   useEffect(() => {
-    fetchUser();
-  }, []);
+    if (token) {
+      fetchUser();
+    } else {
+       setUser(null)
+       setLoadingUser(false)
+    }
+  }, [token]);
 
   // -------------------- Context Value --------------------
   const value = {
@@ -96,6 +107,8 @@ const AppContextProvider = ({ children }) => {
     setTheme,
     fetchUser,
     fetchUserChats,
+    createNewChat,
+    loadingUser
   };
 
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
