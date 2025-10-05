@@ -11,8 +11,6 @@ function ChatBox() {
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [prompt, setPrompt] = useState("");
-  const [mode, setMode] = useState("text");
-  const [isPublished, setIsPublished] = useState(false);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -108,19 +106,6 @@ function ChatBox() {
         )}
       </div>
 
-      {/* Image publish option */}
-      {mode === "image" && (
-        <label className="inline-flex items-center gap-2 mb-3 text-sm mx-auto cursor-pointer">
-          <p className="text-xs">Publish Generated Image to Community</p>
-          <input
-            type="checkbox"
-            checked={isPublished}
-            onChange={(e) => setIsPublished(e.target.checked)}
-            className="cursor-pointer accent-purple-600"
-          />
-        </label>
-      )}
-
       {/* Chat input */}
       <form
         onSubmit={onSubmit}
@@ -129,8 +114,6 @@ function ChatBox() {
                    backdrop-blur-sm focus-within:ring-2 focus-within:ring-purple-400 transition"
       >
         <select
-          onChange={(e) => setMode(e.target.value)}
-          value={mode}
           className="text-sm pr-2 pl-3 outline-none cursor-pointer"
         >
           <option value="text">Text</option>
