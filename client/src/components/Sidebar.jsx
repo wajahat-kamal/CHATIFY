@@ -13,11 +13,52 @@ import {
 import { useAppContext } from "../context/AppContext";
 import chatbot from "../assets/chatbot.avif";
 import moment from "moment";
+import toast from "react-hot-toast";
 
 function Sidebar({ isMenuOpen, setIsMenuOpen }) {
-  const { user, chats, theme, setTheme, setSelectedChat, navigate } =
-    useAppContext();
+  const {
+    user,
+    chats,
+    theme,
+    setTheme,
+    setSelectedChat,
+    navigate,
+    createNewChat,
+    fetchUserChats,
+    setToken,
+    setChats,
+    axios,
+  } = useAppContext();
+
   const [search, setSearch] = useState("");
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    setToken(null);
+    toast("Loggout successfully");
+  };
+
+  const deleteChat = async (e, chatId) => {
+    try {
+      e.stopPropagation();
+      const confirm = window.confirm(
+        "Are you sure you want to delete this chat?"
+      );
+      if (!confirm) return;
+      const { data } = await axios.post(
+        "/api/chat/delete",
+        { chatId },
+        { headers: { Authorization: token } }
+      );
+      if (data.success) {
+        setChats((prev) => prev.filter((chat) => chat._id !== chatId));
+        await fetchUserChats();
+        toast.success(data.message);
+      }
+    } catch (error) {
+      toast.success(error.message);
+    }
+  };
 
   return (
     <div
@@ -39,10 +80,12 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
       </div>
 
       {/* New chat button */}
-      <button className="mt-6 flex items-center justify-center gap-2 py-3 rounded-lg 
+      <button
+        className="mt-6 flex items-center justify-center gap-2 py-3 rounded-lg 
         bg-gradient-to-r from-[#A456F7] to-[#3D61F6] 
         text-white font-medium shadow-md hover:scale-[1.02] 
-        transition-transform duration-200">
+        transition-transform duration-200"
+      >
         <Plus size={18} /> New Chat
       </button>
 
@@ -71,8 +114,10 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
           Recent Chats
         </p>
       )}
-      <div className="space-y-2 overflow-y-auto h-[40vh] pr-1 
-        scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-[#4B3B58] scrollbar-track-transparent">
+      <div
+        className="space-y-2 overflow-y-auto h-[40vh] pr-1 
+        scrollbar-thin scrollbar-thumb-gray-300 dark:scrollbar-thumb-[#4B3B58] scrollbar-track-transparent"
+      >
         {chats
           .filter((chat) =>
             chat.messages.length > 0
@@ -103,7 +148,8 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
                     : chat.name}
                 </p>
                 <span className="text-[11px] font-medium text-gray-500 dark:text-[#B1A6C0] mt-0.5 italic">
-                  {moment(chat.updatedAt, moment.ISO_8601).fromNow()} {/* ✅ fix moment warning */}
+                  {moment(chat.updatedAt, moment.ISO_8601).fromNow()}{" "}
+                  {/* ✅ fix moment warning */}
                 </span>
               </div>
 
@@ -204,7 +250,11 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
             </p>
           </div>
         </div>
-        <LogOut className="hidden group-hover:block text-gray-600 dark:text-gray-300 hover:text-red-500 transition" size={18} />
+        <LogOut
+          onClick={logout}
+          className="hidden group-hover:block text-gray-600 dark:text-gray-300 hover:text-red-500 transition"
+          size={18}
+        />
       </div>
 
       {/* Close button for mobile */}
