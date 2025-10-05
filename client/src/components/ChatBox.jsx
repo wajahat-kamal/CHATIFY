@@ -3,6 +3,7 @@ import { useAppContext } from "../context/AppContext";
 import chatbot from "../assets/chatbot.avif";
 import Message from "./Message";
 import { SendHorizonal, StopCircle } from "lucide-react";
+import toast from "react-hot-toast";
 
 function ChatBox() {
   const { selectedChat, theme, user, axios, token, setUser } = useAppContext();
@@ -14,7 +15,27 @@ function ChatBox() {
   const [isPublished, setIsPublished] = useState(false);
 
   const onSubmit = async (e) => {
-    e.preventDefault();
+    try {
+      e.preventDefault();
+      if(!user) return toast('Login to send message')
+        setLoading(true)
+      const  promptCopy =prompt;
+      setPrompt('')
+      setMessages(prev => [...prev, {role: 'user', content: prompt, timestamp: Date.now(), isImage: false}])
+
+      const {data} = await axios.post('/api/message/text', {chatId: selectedChat._id, prompt}, {headers: { Authorization : token}})
+      if (data.success) {
+        setMessages(prev => [...prev, data.reply])
+      } else {
+        toast.error(data.message)
+        setPrompt(promptCopy)
+      }
+    } catch (error) {
+      toast.error(error.message)
+    } finally {
+      setPrompt('')
+      setLoading(false)
+    }
   };
 
   useEffect(() => {
