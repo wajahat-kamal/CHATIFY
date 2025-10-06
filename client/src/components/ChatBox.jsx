@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAppContext } from "../context/AppContext";
-import chatbot from "../assets/chatbot.avif";
+import logo from "../assets/logo.svg";
 import Message from "./Message";
 import { SendHorizonal, StopCircle } from "lucide-react";
 import toast from "react-hot-toast";
@@ -66,7 +66,7 @@ function ChatBox() {
             <div className="flex items-center gap-3 group">
               <div className="relative">
                 <img
-                  src={chatbot}
+                  src={logo}
                   alt="Chatify Logo"
                   className="w-14 h-14 rounded-2xl shadow-lg border border-purple-400/40 
                              dark:border-purple-500/40 transition-transform duration-300 

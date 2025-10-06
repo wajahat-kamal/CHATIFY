@@ -1,183 +1,278 @@
-/* src/styles/prism-custom.css
-   Custom dark theme with a purple frame and clean formatting
-   Designed to look like the screenshot (rounded, padded, shadowed code panel)
-*/
+pre[class*="language-"],
+code[class*="language-"] {
+	color: #d4d4d4;
+	font-size: 13px !important;
+	text-shadow: none;
+	font-family: Menlo, Monaco, Consolas, "Andale Mono", "Ubuntu Mono", "Courier New", monospace;
+	direction: ltr;
+	text-align: left;
+	white-space: pre-wrap;
+	word-spacing: normal;
+	word-break: normal;
+	line-height: 1.5;
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+	-webkit-hyphens: none;
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+	hyphens: none;
+	width:100%;
+	max-width: 60vw;
+	border-radius: 10px !important;
+}
 
-/* ---------- Base code styles ---------- */
-code[class*="language-"],
+pre[class*="language-"]::selection,
+code[class*="language-"]::selection,
+pre[class*="language-"] *::selection,
+code[class*="language-"] *::selection {
+	text-shadow: none;
+	background: #264F78;
+}
+
+@media print {
+	pre[class*="language-"],
+	code[class*="language-"] {
+		text-shadow: none;
+	}
+}
+
 pre[class*="language-"] {
-  color: #dbe7ff; /* base text */
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", "Source Code Pro", monospace;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  text-align: left;
-  white-space: pre;
-  tab-size: 2;
-  -webkit-font-smoothing: subpixel-antialiased;
+	padding: 1em;
+	margin: .5em 0;
+	overflow: auto;
+	background: #1e1e1e;
 }
 
-/* outer wrapper - purple-ish frame (use this around your <pre>) */
-.prism-wrapper {
-  background: linear-gradient(180deg, rgba(75,24,120,0.12), rgba(56,18,86,0.06));
-  border-radius: 14px;
-  padding: 10px;               /* frame thickness */
-  box-shadow: 0 10px 30px rgba(18,8,28,0.7);
-  border: 1px solid rgba(112,46,180,0.12);
-  margin: 1rem 0;
-}
-
-/* inner pre (actual code surface) */
-.pre-inner,
-pre[class*="language-"] {
-  background: #1f2226;        /* dark code background */
-  border-radius: 10px;
-  padding: 22px;
-  overflow: auto;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.03);
-  margin: 0;
-}
-
-/* small screens: slightly smaller font and padding */
-@media (max-width: 640px) {
-  code[class*="language-"],
-  pre[class*="language-"] {
-    font-size: 0.88rem;
-  }
-  .pre-inner,
-  pre[class*="language-"] {
-    padding: 14px;
-    border-radius: 8px;
-  }
-}
-
-/* inline code styling */
 :not(pre) > code[class*="language-"] {
-  background: #25282c;
-  padding: 0.15em 0.4em;
-  border-radius: 6px;
-  font-size: 0.92em;
+	padding: .1em .3em;
+	border-radius: .3em;
+	color: #db4c69;
+	background: #1e1e1e;
+}
+/*********************************************************
+* Tokens
+*/
+.namespace {
+	opacity: .7;
 }
 
-/* ---------- Token colors (custom palette) ---------- */
+.token.doctype .token.doctype-tag {
+	color: #569CD6;
+}
+
+.token.doctype .token.name {
+	color: #9cdcfe;
+}
+
 .token.comment,
-.token.prolog,
-.token.doctype,
-.token.cdata {
-  color: #6b6f76;
-  font-style: italic;
+.token.prolog {
+	color: #6a9955;
 }
 
-.token.punctuation {
-  color: #8b8f98;
+.token.punctuation,
+.language-html .language-css .token.punctuation,
+.language-html .language-javascript .token.punctuation {
+	color: #d4d4d4;
 }
 
-/* keywords - purple */
-.token.keyword,
-.token.atrule,
-.token.attr-value {
-  color: #c792ea;
-  font-weight: 600;
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.inserted,
+.token.unit {
+	color: #b5cea8;
 }
 
-/* functions and methods - sky/cyan */
-.token.function,
-.token.method {
-  color: #7dd3fc;
-}
-
-/* class names / types */
-.token.class-name,
-.token.type {
-  color: #ffd57a;
-}
-
-/* strings - soft green */
+.token.selector,
+.token.attr-name,
 .token.string,
 .token.char,
 .token.builtin,
-.token.inserted {
-  color: #9ed39b;
+.token.deleted {
+	color: #ce9178;
 }
 
-/* numbers */
-.token.number,
-.token.constant {
-  color: #f78c6c;
+.language-css .token.string.url {
+	text-decoration: underline;
 }
 
-/* operators */
-.token.operator {
-  color: #f8f8f2;
+.token.operator,
+.token.entity {
+	color: #d4d4d4;
 }
 
-/* attributes / selectors */
-.token.selector,
-.token.attr-name {
-  color: #7ee5b2;
+.token.operator.arrow {
+	color: #569CD6;
 }
 
-/* regex / important */
-.token.regex,
+.token.atrule {
+	color: #ce9178;
+}
+
+.token.atrule .token.rule {
+	color: #c586c0;
+}
+
+.token.atrule .token.url {
+	color: #9cdcfe;
+}
+
+.token.atrule .token.url .token.function {
+	color: #dcdcaa;
+}
+
+.token.atrule .token.url .token.punctuation {
+	color: #d4d4d4;
+}
+
+.token.keyword {
+	color: #569CD6;
+}
+
+.token.keyword.module,
+.token.keyword.control-flow {
+	color: #c586c0;
+}
+
+.token.function,
+.token.function .token.maybe-class-name {
+	color: #dcdcaa;
+}
+
+.token.regex {
+	color: #d16969;
+}
+
 .token.important {
-  color: #ffb86b;
+	color: #569cd6;
 }
 
-/* bold & italic helpers */
-.token.important,
-.token.bold {
-  font-weight: 700;
-}
 .token.italic {
-  font-style: italic;
+	font-style: italic;
 }
 
-/* ---------- Line numbers plugin support (optional) ---------- */
-pre.line-numbers {
-  position: relative;
-  padding-left: 3.8em;
-}
-.line-numbers-rows {
-  position: absolute;
-  pointer-events: none;
-  top: 0;
-  font-size: 100%;
-  left: 0;
-  width: 3.5em;
-  border-right: 1px solid rgba(255,255,255,0.03);
-}
-.line-numbers-rows > span {
-  display: block;
-  padding: 0 0.65em;
-  text-align: right;
-  color: rgba(255,255,255,0.22);
+.token.constant {
+	color: #9cdcfe;
 }
 
-/* ---------- Highlighted lines (if using plugin) ---------- */
-pre[data-line] .line-highlight {
-  background: rgba(255, 255, 255, 0.03);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
+.token.class-name,
+.token.maybe-class-name {
+	color: #4ec9b0;
 }
 
-/* ---------- Explanation / caption area below code (like your screenshot) ---------- */
-.prism-explain {
-  margin-top: 12px;
-  border-radius: 10px;
-  padding: 14px;
-  background: linear-gradient(180deg, rgba(65,14,87,0.95), rgba(48,10,62,0.95));
-  color: #f7f3ff;
-  font-size: 0.95rem;
-  line-height: 1.6;
-  box-shadow: 0 6px 20px rgba(17,8,30,0.65);
-  border: 1px solid rgba(255,255,255,0.03);
+.token.console {
+	color: #9cdcfe;
 }
 
-/* small niceties */
-pre::-webkit-scrollbar {
-  height: 10px;
-  width: 10px;
+.token.parameter {
+	color: #9cdcfe;
 }
-pre::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.06);
-  border-radius: 8px;
+
+.token.interpolation {
+	color: #9cdcfe;
+}
+
+.token.punctuation.interpolation-punctuation {
+	color: #569cd6;
+}
+
+.token.boolean {
+	color: #569cd6;
+}
+
+.token.property,
+.token.variable,
+.token.imports .token.maybe-class-name,
+.token.exports .token.maybe-class-name {
+	color: #9cdcfe;
+}
+
+.token.selector {
+	color: #d7ba7d;
+}
+
+.token.escape {
+	color: #d7ba7d;
+}
+
+.token.tag {
+	color: #569cd6;
+}
+
+.token.tag .token.punctuation {
+	color: #808080;
+}
+
+.token.cdata {
+	color: #808080;
+}
+
+.token.attr-name {
+	color: #9cdcfe;
+}
+
+.token.attr-value,
+.token.attr-value .token.punctuation {
+	color: #ce9178;
+}
+
+.token.attr-value .token.punctuation.attr-equals {
+	color: #d4d4d4;
+}
+
+.token.entity {
+	color: #569cd6;
+}
+
+.token.namespace {
+	color: #4ec9b0;
+}
+/*********************************************************
+* Language Specific
+*/
+
+pre[class*="language-javascript"],
+code[class*="language-javascript"],
+pre[class*="language-jsx"],
+code[class*="language-jsx"],
+pre[class*="language-typescript"],
+code[class*="language-typescript"],
+pre[class*="language-tsx"],
+code[class*="language-tsx"] {
+	color: #9cdcfe;
+}
+
+pre[class*="language-css"],
+code[class*="language-css"] {
+	color: #ce9178;
+}
+
+pre[class*="language-html"],
+code[class*="language-html"] {
+	color: #d4d4d4;
+}
+
+.language-regex .token.anchor {
+	color: #dcdcaa;
+}
+
+.language-html .token.punctuation {
+	color: #808080;
+}
+/*********************************************************
+* Line highlighting
+*/
+pre[class*="language-"] > code[class*="language-"] {
+	position: relative;
+	z-index: 1;
+}
+
+.line-highlight.line-highlight {
+	background: #f7ebc6;
+	box-shadow: inset 5px 0 0 #f7d87c;
+	z-index: 0;
 }

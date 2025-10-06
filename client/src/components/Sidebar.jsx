@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Search, Plus, Trash2, Sun, User, LogOut, X } from "lucide-react";
 import { useAppContext } from "../context/AppContext";
-import chatbot from "../assets/chatbot.avif";
+import logo from "../assets/logo.svg";
 import moment from "moment";
 import toast from "react-hot-toast";
 
@@ -68,7 +68,7 @@ function Sidebar({ isMenuOpen, setIsMenuOpen }) {
       <div className="flex items-center gap-3 group">
         <div className="relative">
           <img
-            src={chatbot}
+            src={logo}
             alt="Chatify Logo"
             className="w-10 h-10 rounded-2xl shadow-lg border border-purple-400/40 
                  dark:border-purple-500/40 transition-transform duration-300 
